@@ -26,6 +26,7 @@ services:
       - ./.containers/webserver/apache/000-default.conf:/etc/apache2/conf-enabled/000-default.conf:rw
       - ./.containers/webserver/apache/mailhog.conf:/etc/apache2/conf-enabled/mailhog.conf:rw
       - ./.containers/webserver/moodle/config.php:/app/lms/moodle/config.php:rw
+      - ./.containers/webserver/PwshProfile.ps1:/home/docker/.config/powershell/Microsoft.PowerShell_profile.ps1
     working_dir: /app
 
   db:
