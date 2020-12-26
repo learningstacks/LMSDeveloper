@@ -3,9 +3,9 @@ using namespace System.Collections
 $InformationPreference = 'Continue'
 $ErrorActionPreference = 'Stop'
 
-$LMSOriginUri = "https://gitpapl1.uth.tmc.edu/CLI_Engage_Moodle/cliengage_lms.git"
-$LMSDir = (Join-Path $PSScriptRoot .. lms)
-$MoodleDir = Join-Path $LMSDir moodle
+$Env:LMSOriginUri = "https://gitpapl1.uth.tmc.edu/CLI_Engage_Moodle/cliengage_lms.git"
+$Env:LMSDir = (Join-Path $PSScriptRoot .. lms)
+$Env:MoodleDir = Join-Path $Env:LMSDir moodle
 
 function Add-LMSRemote {
     <#
@@ -44,26 +44,26 @@ function Add-LMSRemote {
         $OriginUri = $comps.$Name.OriginUri
 
         # If remote does not yet exist add it
-        if (-Not (git -C $LmsDir remote | Select-String $Name)) {
+        if (-Not (git -C $Env:LMSDir remote | Select-String $Name)) {
             Write-Information "Adding remote $name"
 
             # Configure the remote
-            git -C $LmsDir config --local ("remote.$name.url") $OriginUri
-            git -C $LmsDir config --local ("remote.$name.fetch") "+refs/heads/*:refs/remotes/$name/*"
+            git -C $Env:LMSDir config --local ("remote.$name.url") $OriginUri
+            git -C $Env:LMSDir config --local ("remote.$name.fetch") "+refs/heads/*:refs/remotes/$name/*"
 
             # Place tags under the remote name to group them
-            git -C $LmsDir config --local --add ("remote.$name.fetch") "+refs/tags/*:refs/tags/$name/*"
-            git -C $LmsDir config --local ("remote.$name.tagopt") "--no-tags"
+            git -C $Env:LMSDir config --local --add ("remote.$name.fetch") "+refs/tags/*:refs/tags/$name/*"
+            git -C $Env:LMSDir config --local ("remote.$name.tagopt") "--no-tags"
         }
 
         # If remote exists and URI has changed, update it
-        elseif ((git -C $LmsDir remote get-url $name) -ne $OriginUri) {
+        elseif ((git -C $Env:LMSDir remote get-url $name) -ne $OriginUri) {
             Write-Information "Updating remote $name"
-            git -C $LmsDir config --local ("remote.$name.url") $uri
+            git -C $Env:LMSDir config --local ("remote.$name.url") $uri
         }
 
         # Refresh the remote, fetching all branches and tags
-        git -C $LmsDir remote update $Name
+        git -C $Env:LMSDir remote update $Name
     }
 
 }
@@ -74,9 +74,11 @@ function Remove-LMSRemote {
     .SYNOPSIS
         Remove the named remote and all associated tags.
 
+    .DESCRIPTION
+        If a remote with the given name exists it is removed. Then all tags prefixed with the remote name are deleted.
+
     .PARAMETER Name
-        The name of the component. This should be the component name as used by Moodle. It will be used as the name of the remote.
-        The component must be defined in the components.csv file.
+        The nmame of the remote to be removed.
 
     .EXAMPLE
         PS> Remove-LMSRemote moodle
@@ -88,14 +90,14 @@ function Remove-LMSRemote {
         [Parameter(Mandatory, Position = 0, ValueFromPipelineByPropertyName = $true)][string]$Name
     )
 
-    if ((git -C $LmsDir remote | Select-String $Name)) {
+    if ((git -C $Env:LMSDir remote | Select-String $Name)) {
         Write-Information "Removing remote $Name"
-        git -C $LmsDir remote remove $Name
+        git -C $Env:LMSDir remote remove $Name
     }
 
     # Delete all tags associated with the remote
-    (git -C $LMSDir tag -l) | Select-String -Pattern "^$Name/.*$" | ForEach-Object {
-        git -C $LMSDir tag -d $_
+    (git -C $Env:LMSDir tag -l) | Select-String -Pattern "^$Name/.*$" | ForEach-Object {
+        git -C $Env:LMSDir tag -d $_
     }
 }
 
@@ -166,7 +168,7 @@ function Add-LMSComponent {
         $prefix = "moodle/" + $comp.Prefix
         $uri = $comp.OriginUri
 
-        if (Test-Path (Join-Path $LMSDir $prefix)) {
+        if (Test-Path (Join-Path $Env:LMSDir $prefix)) {
             $op = 'pull'
             $action = "Update component"
         }
@@ -190,7 +192,7 @@ function Add-LMSComponent {
         )
         if ($PSCmdlet.ShouldProcess($prompt, $action)) {
             Invoke-Command {
-                git -C $LMSDir subtree $op --prefix=$prefix $uri $CommitRef --squash -m $commitmsg
+                git -C $Env:LMSDir subtree $op --prefix=$prefix $uri $CommitRef --squash -m $commitmsg
             }
         }
     }
@@ -211,10 +213,37 @@ function Enable-XDebug {
 }
 
 function Initialize-PhpUnit {
-    php (Join-Path $MoodleDir "admin/tool/phpunit/cli/init.php")
+    php (Join-Path $Env:MoodleDir "admin/tool/phpunit/cli/init.php")
 }
 
 function Invoke-PhpUnit {
+    <#
+
+    .SYNOPSIS
+        Execute PHPUnit tests.
+
+    .DESCRIPTION
+        If a remote with the given name exists it is removed. Then all tags prefixed with the remote name are deleted.
+
+    .PARAMETER Config
+        If a configuration name is provided, the confiuration file named phpunit_configname.xml is used to define the tests to be executed.
+        If no Config value is provided the phpunit.xml file is used.
+
+        Test results are logged to test_results/phpunit/YYYY-MM-DD_HHMM where the directory name YYY-MM-DD_HHMM is the date and minute the test began.
+
+        After running, test results are summarized in results.csv. This can be loaded into Excel and pivoted for analysis.
+
+    .EXAMPLE
+        PS> Invoke-PHPUnit
+
+        This will run all tests found in lms/moodle/phpunit.xml
+
+    .EXAMPLE
+        PS> Invoke-PHPUnit elis
+
+        This will run all tests found in lms/moodle/phpunit_elis.xml
+
+    #>
     [CmdletBinding()]
     Param(
         [Parameter(ValueFromPipeline = $true, Position = 0)][string]$Config = "",
@@ -224,11 +253,11 @@ function Invoke-PhpUnit {
     begin {
         Disable-XDebug
         Initialize-PhpUnit
-        $phpunit = Join-Path $moodledir "vendor/bin/phpunit"
+        $phpunit = Join-Path $Env:MoodleDir "vendor/bin/phpunit"
         $resultsDir = Join-Path $PSScriptRoot .. test_results
         $logdir = Join-Path $resultsDir phpunit (Get-Date -Format 'yyyy-MM-dd_HHmm')
         New-Item -ItemType Directory $logdir -Force
-        Push-Location $moodledir
+        Push-Location $Env:MoodleDir
         $logfile = Join-Path $logdir "stdout.log"
     }
 
@@ -250,7 +279,7 @@ function Invoke-PhpUnit {
                 & $phpunit -c $configfile --log-junit $log_junit >> $logfile 2>&1
             }
             else {
-                & $phpunit -c $configfile --log-junit $log_junit $log_testdox_html
+                & $phpunit -c $configfile --log-junit $log_junit
             }
         }
     }
