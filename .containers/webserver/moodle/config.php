@@ -47,8 +47,9 @@ $CFG->phpunit_dataroot = '/appdata/phpunitdata';
 $CFG->phpunit_prefix = 'phpu_';
 define('TEST_EXTERNAL_FILES_HTTP_URL', 'http://exttests');
 
-$CFG->behat_wwwroot = 'http://webserver';
+$CFG->behat_wwwroot = 'http://webserver/behat';
 $CFG->behat_dataroot = '/appdata/behatdata';
+$CFG->behat_dataroot_parent = $CFG->behat_dataroot;
 $CFG->behat_prefix = 'b_';
 $CFG->behat_profiles = array(
     'default' => array(
@@ -63,7 +64,7 @@ $CFG->behat_profiles = array(
         ]
     ),
 );
-$CFG->behat_faildump_path = '/appdata/behatfaildumps';
+$CFG->behat_faildump_path = '/app/test_results/behat/faildumps';
 
 define('PHPUNIT_LONGTEST', true);
 
