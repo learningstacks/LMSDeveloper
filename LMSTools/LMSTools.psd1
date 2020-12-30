@@ -16,6 +16,9 @@
         'Remove-LMSRemote'
         'Initialize-PHPUnit'
         'Invoke-PHPUnit'
+        'Initialize-Behat'
+        'Invoke-Behat'
+        'Get-BehatSummary'
     )
     CmdletsToExport    = @()
     VariablesToExport  = '*'

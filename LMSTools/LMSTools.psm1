@@ -6,29 +6,35 @@ $ErrorActionPreference = 'Stop'
 $Env:LMSOriginUri = "https://gitpapl1.uth.tmc.edu/CLI_Engage_Moodle/cliengage_lms.git"
 $Env:LMSDir = (Join-Path $PSScriptRoot .. lms)
 $Env:MoodleDir = Join-Path $Env:LMSDir moodle
+$Env:BehatdataDir = "/appdata/behatdata"
 
 function Add-LMSRemote {
     <#
-
     .SYNOPSIS
         Add a Git remote referencing the named component repository.
 
     .DESCRIPTION
-        The function adds a remote with the name of the component and then fetches the remote.
-        It sets the Git fetch comfiguration so that all component tags are grouped by the component name to seperate them from local tags.
-        If the remote already exists it is refreshed.
+        The function adds a remote with the name of the component and then fetches the remote. Adding a remote to the upstream repository
+        of a componment allows the Developer to view the history of that component to examine upstream changes, etc.
 
-    .PARAMETER Name
-        The name of the component. This should be the component name as used by Moodle. It will be used as the name of the remote.
-        The component must be defined in the components.csv file.
+        The component must be defined in components.csv.
+
+        It sets the Git fetch comfiguration so that all component tags are grouped by the component name to seperate them from local tags.
+
+        If the remote already exists it is refreshed, fetching all updates.
 
     .EXAMPLE
-        PS> Add-LMSRemote -Name moodle
+        Add-LMSRemote -Name moodle
+
+        Adds a remote named moodle and fetches all branches and tags. Tags are grouped by the component name.
+        For example: moodle/3.7.1.
 
     #>
 
     [CmdletBinding()]
     Param (
+        # The name of the component. This should be the component name as used by Moodle. It will be used as the name of the remote.
+        # The component must be defined in the components.csv file.
         [Parameter(Mandatory = $true, Position = 0, ValueFromPipelineByPropertyName = $true)][string]$Name
     )
 
@@ -77,16 +83,21 @@ function Remove-LMSRemote {
     .DESCRIPTION
         If a remote with the given name exists it is removed. Then all tags prefixed with the remote name are deleted.
 
-    .PARAMETER Name
-        The nmame of the remote to be removed.
-
     .EXAMPLE
-        PS> Remove-LMSRemote moodle
+        Remove-LMSRemote moodle
+
+        Removes the remote named 'moodle' and all tags named 'moodle/*'
+
+        .EXAMPLE
+        Remove-LMSRemote mod_certificate
+
+        Removes the remote named 'mod_certificate' and all tags named 'mod_certificate/*'.
 
     #>
 
     [CmdletBinding()]
     Param (
+        # The name of the component whose remote is to be removed.
         [Parameter(Mandatory, Position = 0, ValueFromPipelineByPropertyName = $true)][string]$Name
     )
 
@@ -120,7 +131,6 @@ function Import-Components {
 
 function Add-LMSComponent {
     <#
-
     .SYNOPSIS
         Add or update an LMS component.
 
@@ -129,19 +139,11 @@ function Add-LMSComponent {
         If the prefix directory does not exist the component is added as a Git subtree.
         If the prefix directory exists the component is updated to the specified commit.
 
-    .PARAMETER Name
-        The name of the component. This should be the component name as used by Moodle. It will be used as the name of the remote.
-        The component must be defined in the components.csv file.
-
-    .PARAMETER CommitRef
-        Identifies the specific commit to be added. This can be a label, a branch reference or a commit hash.
+    .EXAMPLE
+        Add-LMSComponent -Name moodle -CommitRef MOODLE_39_STABLE
 
     .EXAMPLE
-        PS> Add-LMSComponent -Name moodle -Prefix moodle -OriginUri https://github.com/moodle/moodle.git MOODLE_39_STABLE
-
-    .EXAMPLE
-        PS> Add-LMSComponent -Name mod_questionnaire -Prefix moodle/mod/questionnaire -OriginUri https://gitpapl1.uth.tmc.edu/CLI_Engage_Moodle/mod_questionnaire.git master
-
+        Add-LMSComponent -Name mod_questionnaire -CommitRef v3.1.1
     #>
 
     [CmdletBinding(
@@ -150,7 +152,11 @@ function Add-LMSComponent {
     )]
 
     Param(
+        # The name of the component. This should be the component name as used by Moodle. It will be used as the name of the remote.
+        # The component must be defined in the components.csv file.
         [Parameter(Mandatory = $true, Position = 0, ValueFromPipelineByPropertyName = $true)][string]$Name,
+
+        # The specific version (commit) of the componen to be added or updated. This vcan be a branch name, a commit has, or a rag name.
         [Parameter(Mandatory = $true, Position = 1, ValueFromPipelineByPropertyName = $true)][string]$CommitRef
     )
 
@@ -213,6 +219,14 @@ function Enable-XDebug {
 }
 
 function Initialize-PhpUnit {
+    <#
+    .SYNOPSIS
+        Executes the Moodle PHPUnit init script
+
+    .EXAMPLE
+        Initialize-PHPUnit
+    #>
+
     php (Join-Path $Env:MoodleDir "admin/tool/phpunit/cli/init.php")
 }
 
@@ -225,27 +239,24 @@ function Invoke-PhpUnit {
     .DESCRIPTION
         If a remote with the given name exists it is removed. Then all tags prefixed with the remote name are deleted.
 
-    .PARAMETER Config
-        If a configuration name is provided, the confiuration file named phpunit_configname.xml is used to define the tests to be executed.
-        If no Config value is provided the phpunit.xml file is used.
-
         Test results are logged to test_results/phpunit/YYYY-MM-DD_HHMM where the directory name YYY-MM-DD_HHMM is the date and minute the test began.
 
         After running, test results are summarized in results.csv. This can be loaded into Excel and pivoted for analysis.
 
     .EXAMPLE
-        PS> Invoke-PHPUnit
+        Invoke-PHPUnit
 
-        This will run all tests found in lms/moodle/phpunit.xml
+        Run all unit tests
 
     .EXAMPLE
-        PS> Invoke-PHPUnit elis
+        Invoke-PHPUnit elis
 
-        This will run all tests found in lms/moodle/phpunit_elis.xml
-
+        Run all tests found in lms/moodle/phpunit_elis.xml
     #>
     [CmdletBinding()]
     Param(
+        # If a configuration name is provided, the confiuration file named phpunit_configname.xml is used to define the tests to be executed.
+        # If no Config value is provided the default phpunit.xml file is used.
         [Parameter(ValueFromPipeline = $true, Position = 0)][string]$Config = "",
         [switch]$Log
     )
@@ -285,13 +296,13 @@ function Invoke-PhpUnit {
     }
 
     end {
-        Build-TestReport $logdir -ErrorAction Continue
+        Build-PhpunitTestReport $logdir -ErrorAction Continue
         Pop-Location
     }
 
 }
 
-function Build-TestReport {
+function Build-PhpunitTestReport {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, Position = 0)][string]$Dir
@@ -357,12 +368,287 @@ function Build-TestReport {
     $results | Select-Object -Property * | ConvertTo-Csv | Set-Content $outfile -Force
 }
 
-$ExportedFunctions = @(
-    'Add-LMSComponent'
-    'Add-LMSRemote'
-    'Remove-LMSRemote'
-    'Initialize-PHPUnit'
-    'Invoke-PHPUnit'
-)
 
-Export-ModuleMember -Function $ExportedFunctions
+function Initialize-Behat {
+    <#
+    .SYNOPSIS
+        Executes the Moodle Behat init script.
+
+    .EXAMPLE
+        Initialize-Behat
+    #>
+
+    php (Join-Path $Env:MoodleDir "admin/tool/behat/cli/init.php")
+    # Initialize-BehatConfig
+}
+
+function Initialize-BehatConfig {
+
+    Write-Information "Preparing custom Behat configuration file to test only plugins"
+    $b = Get-Content (Join-Path $Env:BehatdataDir behatrun behat behat.yml) | ConvertFrom-Yaml
+    $comps = Import-Components
+    $pluginPrefixes = $comps.Values | Where-Object -Property Name -NE 'moodle' | ForEach-Object { $_.Prefix }
+    $exp = "/moodle/" + "(" + ($pluginPrefixes -join '|') + ")"
+    $b.default.suites.default.paths = ($b.default.suites.default.paths -match $exp) | Sort-Object
+    $b.plugins = @{
+        suites = @{
+            default = @{
+                paths = @($b.default.suites.default.paths[0])
+            }
+        }
+    }
+
+    # foreach ($comp in $comps) {
+
+    #     if ($comp.Name -eq 'moodle') {
+    #         # $b.default.suites.moodle = @{
+    #         #     contexts = $defaultsuite.contexts
+    #         # }
+    #     }
+    #     else {
+    #         $name = $comp.Name
+    #         $paths = $defaultsuite.paths -match $exp
+    #         $b.default.suites.$name = @{
+    #             paths    = $paths
+    #             contexts = $defaultsuite.contexts
+    #         }
+    #     }
+    # }
+
+    # $b.default.suites.default.paths = @()
+
+    $b | ConvertTo-Yaml | Set-Content /app/test_results/behat_plugins.yml -force
+}
+
+function Invoke-Behat {
+    <#
+
+    .SYNOPSIS
+        Execute Benat tests.
+
+    .DESCRIPTION
+        Initializes Behat then tests the components defined by the parameters.
+        Test results are stored under test_results/behat in a time-stamped directory.
+
+    .EXAMPLE
+        Invoke-Behat
+
+        Test all plugins
+
+    .EXAMPLE
+        Invoke-Behat -PluginGroup elis
+
+        Test all ELIS plugins
+
+        .EXAMPLE
+        Invoke-Behat -Plugin mod_certificate,mod_customcert
+
+        Test two plugins
+
+    #>
+    [CmdletBinding()]
+    Param(
+        # The Behat configuration file to use. Defaults to the one generated by Moodle.
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true, Position = 0)]
+        [string]$ConfigFile = (Join-Path $Env:BehatdataDir behatrun behat behat.yml),
+
+        # Defines the plugin groups to be tested (groups are defined in components.csv).
+        # By default no groups are included
+        # Excludes Moodle
+        [Parameter(Mandatory = $false)]
+        [string[]]$Group = @(),
+
+        # Defines specific plugins to be tested by plugin name. Can be regular expression (e.g., .* to test all)
+        # By default all plugins will be tested
+        # Excludes Moodle
+        [Parameter(Mandatory = $false)]
+        [string[]]$Plugin = '.*'
+    )
+
+    begin {
+        Disable-XDebug
+        Initialize-Behat
+
+        $behat = Join-Path $Env:MoodleDir "vendor/bin/behat"
+        $resultsDir = Join-Path $PSScriptRoot .. test_results
+        $logdir = Join-Path $resultsDir behat (Get-Date -Format 'yyyy-MM-dd_HHmm')
+        New-Item -ItemType Directory $logdir -Force
+        Push-Location $Env:MoodleDir
+        $logfile = Join-Path $logdir "test_results.log"
+
+        $comps = Import-Components
+        $compsToTest = @()
+        if ($PluginGroup) {
+            $exp = $PluginGroup -join "|"
+            $c = $comps.values | Where-Object { ($_.Group -match $exp) -And ($_.Name -ne 'moodle') }
+            $compsToTest = $compsToTest + $c
+        }
+
+        if ($Plugin) {
+            $exp = $Plugin -join "|"
+            $c = $comps.values | Where-Object { ($_.Name -match $exp) -And ($_.Name -ne 'moodle') }
+            $compsToTest = $compsToTest + $c
+        }
+
+        $compsToTest = $compsToTest | Select-Object -Property Name -Unique
+        $compsToTest = $compsToTest | Where-Object { Test-Path (Join-Path $Env:MoodleDir $_.Prefix) } | Sort-Object -Property Name
+
+        if (-Not $compsToTest) {
+            $compsToTest = $comps.values | Where-Object { $_.Name -ne 'moodle' }
+        }
+
+        $defaultConfig = Join-Path $Env:BehatdataDir behatrun behat behat.yml
+        $OnCompNum = 1
+    }
+
+    process {
+        if (-Not (Test-Path $Configfile)) {
+            Write-Error Unable to find configuration file $configfile
+        }
+
+
+        else {
+            Write-Information "`nBeginning Test"
+            if ($Log) {
+                & $behat --config $Configfile --format junit --out $logdir >> $logfile 2>&1
+            }
+            else {
+                # & $behat --config $Configfile --tags --format=pretty #--out=$prettyfile --format=moodle_progress
+                foreach ($comp in $compsToTest) {
+                    $tag = "@" + $comp.Name
+                    # $logfile = Join-Path $logdir ($comp.Name + '.log')
+
+                    Write-Information "Testing $($comp.name) ($OnCompNum of $($compsToTest.Count))"
+                    @(
+                        ""
+                        "----------------------------------------"
+                        "Component: " + $comp.Name
+                        "----------------------------------------"
+                    ) | Out-File $logfile -Append
+                    & $behat --config=$defaultConfig --tags=$tag  --format=moodle_progress --out=std | Out-File $logfile -Append
+
+                    $OnCompNum++
+                }
+            }
+        }
+    }
+
+    end {
+        Write-Information "`nTest Complete"
+        $summary = Get-BehatTestSummary $logfile
+        $ReportFile = Join-Path (Split-Path $logfile) 'test_report.txt'
+        $summary.SummaryCounts | Format-List | Out-File -Path $ReportFile -Force
+        $summary.ComponentSummary | Sort-Object -Property Status | Format-Table | Out-File -Path $ReportFile -Append
+        (Get-Content $logfile) | Out-File -Path $ReportFile -Append
+        Pop-Location
+
+        $summary.SummaryCounts | Format-List | Out-String | Write-Information
+    }
+
+}
+
+function Get-BehatTestSummary {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, Position = 0)][string]$File
+    )
+
+    $TestResults = Get-Content $File
+    $lines = $TestResults -match "^(Component:|(No|[0-9]+) scenarios|(No|[0-9]+) steps)"
+
+    function getCounts([string]$line) {
+        $result = @{
+            Total     = 0
+            Passed    = 0
+            Failed    = 0
+            Undefined = 0
+            Skipped   = 0
+        }
+
+        if ($line -match '^(?<num>[0-9]+)') { $result.Total = [Int32]$Matches.num }
+        if ($line -match '(?<num>[0-9]+) passed') { $result.Passed = [Int32]$Matches.num }
+        if ($line -match '(?<num>[0-9]+) failed') { $result.Failed = [Int32]$Matches.num }
+        if ($line -match '(?<num>[0-9]+) undefined') { $result.Undefined = [Int32]$Matches.num }
+        if ($line -match '(?<num>[0-9]+) skipped') { $result.Skipped = [Int32]$Matches.num }
+
+        return $result
+    }
+
+    $ComponentSummary = [System.Collections.ArrayList]::new()
+
+    for ($i = 0; $i -lt $lines.Count; $i += 3 ) {
+        $compLine = $lines[$i]
+        $scenLine = $lines[$i + 1]
+        $stepLine = $lines[$i + 2]
+
+        if (-Not ($compline -match '^Component: (?<name>.*)$')) {
+            Write-Error "Line '$compLine' does not define a component"
+        }
+        $compName = $Matches.name
+
+        if (-Not ($scenLine -match '(No|[0-9]+) scenarios')) {
+            Write-Error "Line '$scenLine' does not define scenario counts"
+        }
+
+        $scenarios = getCounts($scenLine)
+
+        if (-Not ($stepLine -match '(No|[0-9]+) steps')) {
+            Write-Error "Line '$stepLine' does not define step counts"
+        }
+
+        $steps = getCounts($stepLine)
+        $status = if ($scenarios.total -eq 0) { "NO TESTS" } elseif ($scenarios.failed -gt 0) { "FAILED" } else { "PASSED" }
+
+        $null = $ComponentSummary.Add(
+            [PSCustomObject]@{
+                Component       = $compName
+                Status          = $status
+                ScenariosTotal  = $scenarios.Total
+                ScenariosPassed = $scenarios.Passed
+                ScenariosFailed = $scenarios.Failed
+                # ScenariosSkipped = $scenarios.Skipped
+                StepsTotal      = $steps.Total
+                StepsPassed     = $steps.Passed
+                StepsFailed     = $steps.Failed
+                StepsUndefined  = $steps.Undefined
+                StepsSkipped    = $steps.Skipped
+            }
+        )
+    }
+
+    $SummaryCounts = [PSCustomObject]@{
+        "Total Components"         = $ComponentSummary.Count
+        "Components Passed"        = ( $ComponentSummary | Where-Object { $_.Status -eq "PASSED" }).Count
+        "Components Failed"        = ( $ComponentSummary | Where-Object { $_.Status -eq "FAILED" }).Count
+        "Components Without Tests" = ( $ComponentSummary | Where-Object { $_.Status -eq "NO TESTS" }).Count
+        'Failed Scenarios'         = ( $ComponentSummary | Measure-Object -Property ScenariosFailed -Sum).Sum
+        'Failed Steps'             = ( $ComponentSummary | Measure-Object -Property StepsFailed -Sum).Sum
+        'Skipped Steps'            = ( $ComponentSummary | Measure-Object -Property StepsSkipped -Sum).Sum
+        'Undefined Steps'          = ( $ComponentSummary | Measure-Object -Property StepsUndefined -Sum).Sum
+    }
+
+    @{
+        TestLogFile      = $File
+        SummaryCounts    = $SummaryCounts
+        ComponentSummary = $ComponentSummary
+    }
+
+}
+
+# $ExportedFunctions = @(
+#     # Manage components
+#     'Add-LMSComponent'
+#     'Add-LMSRemote'
+#     'Remove-LMSRemote'
+
+#     # PHPUnit testing
+#     'Initialize-PHPUnit'
+#     'Invoke-PHPUnit'
+
+#     # Behat testing
+#     'Initialize-Behat'
+#     'Invoke-Behat'
+#     'Get-BehatSummary'
+# )
+
+Export-ModuleMember -Function *
