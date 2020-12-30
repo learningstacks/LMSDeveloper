@@ -535,24 +535,21 @@ function Invoke-Behat {
 
     end {
         Write-Information "`nTest Complete"
-        $summary = Get-BehatTestSummary $logfile
-        $ReportFile = Join-Path (Split-Path $logfile) 'test_report.txt'
-        $summary.SummaryCounts | Format-List | Out-File -Path $ReportFile -Force
-        $summary.ComponentSummary | Sort-Object -Property Status | Format-Table | Out-File -Path $ReportFile -Append
-        (Get-Content $logfile) | Out-File -Path $ReportFile -Append
+        $results = Publish-BehatTestReport $logfile
         Pop-Location
-
-        $summary.SummaryCounts | Format-List | Out-String | Write-Information
+        $results.SummaryCounts | Format-List | Out-String | Write-Information
+        $results
     }
 
 }
 
-function Get-BehatTestSummary {
+function Publish-BehatTestReport {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, Position = 0)][string]$File
     )
 
+    $File = Resolve-Path $File
     $TestResults = Get-Content $File
     $lines = $TestResults -match "^(Component:|(No|[0-9]+) scenarios|(No|[0-9]+) steps)"
 
@@ -627,8 +624,16 @@ function Get-BehatTestSummary {
         'Undefined Steps'          = ( $ComponentSummary | Measure-Object -Property StepsUndefined -Sum).Sum
     }
 
+    # Publish results to behat_test_report.txt in same folder as log file
+    $ReportFile = Join-Path (Split-Path $File) 'behat_test_report.txt'
+    $SummaryCounts | Format-List | Out-File -Path $ReportFile -Force
+    $ComponentSummary | Sort-Object -Property Status | Format-Table | Out-File -Path $ReportFile -Append
+    $TestResults | Out-File -Path $ReportFile -Append
+
+    # Return data
     @{
         TestLogFile      = $File
+        TestReportFile   = (Resolve-Path $ReportFile)
         SummaryCounts    = $SummaryCounts
         ComponentSummary = $ComponentSummary
     }
