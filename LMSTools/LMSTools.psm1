@@ -45,9 +45,15 @@ function Add-LMSRemote {
     process {
         if (-Not $comps.ContainsKey($Name)) {
             Write-Error "Component $Name is not defined in components.csv"
+            return
         }
 
         $OriginUri = $comps.$Name.OriginUri
+
+        if (-Not $OriginUri) {
+            Write-Information ("Component $Name has no Git remote. " + $comps.$Name.Notes)
+            return
+        }
 
         # If remote does not yet exist add it
         if (-Not (git -C $Env:LMSDir remote | Select-String $Name)) {
