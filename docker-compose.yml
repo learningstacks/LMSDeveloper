@@ -27,6 +27,7 @@ services:
       - ./.containers/webserver/apache/mailhog.conf:/etc/apache2/conf-enabled/mailhog.conf:rw
       - ./.containers/webserver/moodle/config.php:/app/lms/moodle/config.php:rw
       - ./.containers/webserver/PwshProfile.ps1:/home/docker/.config/powershell/profile.ps1
+      - moodledata:/appdata/moodledata
     working_dir: /app
 
   db:
@@ -40,6 +41,8 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: moodle
       MYSQL_PASSWORD: moodle
+    volumes:
+      - mysqldata:/var/lib/mysql
 
   exttests:
     image: moodlehq/moodle-exttests
@@ -53,3 +56,7 @@ services:
     image: selenium/standalone-firefox:2.53.1
     volumes:
       - .:/app:ro
+
+volumes:
+  moodledata:
+  mysqldata:
