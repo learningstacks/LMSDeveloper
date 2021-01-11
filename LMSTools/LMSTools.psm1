@@ -1,4 +1,5 @@
 using namespace System.Collections
+using namespace System.Xml
 
 $InformationPreference = 'Continue'
 $ErrorActionPreference = 'Stop'
@@ -215,6 +216,9 @@ function Disable-XDebug {
         sudo phpdismod xdebug
         sudo service apache2 reload
     }
+    else {
+        Write-Information "Disable-Xdebug not implemented on Windows"
+    }
 }
 
 function Enable-XDebug {
@@ -222,6 +226,10 @@ function Enable-XDebug {
         sudo phpenmod xdebug
         sudo service apache2 reload
     }
+    else {
+        Write-Information "Disable-Xdebug not implemented on Windows"
+    }
+
 }
 
 function Initialize-PhpUnit {
@@ -296,19 +304,19 @@ function Invoke-PhpUnit {
                 & $phpunit -c $configfile --log-junit $log_junit >> $logfile 2>&1
             }
             else {
-                & $phpunit -c $configfile --log-junit $log_junit
+                & $phpunit -c $configfile --log-junit $log_junit --verbose
             }
         }
     }
 
     end {
-        Build-PhpunitTestReport $logdir -ErrorAction Continue
+        Publish-PhpunitTestReport $logdir -ErrorAction Continue
         Pop-Location
     }
 
 }
 
-function Build-PhpunitTestReport {
+function Publish-PhpunitTestReport {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, Position = 0)][string]$Dir
@@ -317,15 +325,46 @@ function Build-PhpunitTestReport {
     function GetResult([XmlNode]$testcase) {
         if (-Not $testcase.HasChildNodes) { return @('pass', '', '') }
         $res = $testcase.ChildNodes[0]
-        $msglines = ($res.InnerText -split '\r?\n').Trim()
+        $msg = $res.'#text'
+        $msglines = ($msg -split '\r?\n').Trim()
         $result = $res.LocalName
         $subtype = ""
 
         if ($res.LocalName -eq 'error') {
-            $subtype = $res.type
+            if ($msg.contains('deprecated')) {
+                $subtype = 'Deprecated'
+            }
+            elseif ($msg.contains('Undefined index:')) {
+                $subtype = 'Undefined index:'
+            }
+            elseif ($msg.contains('Exception encountered')) {
+                $subtype = 'Exception'
+            }
+            elseif ($msg.contains('Unexpected')) {
+                $subtype = 'Exception'
+            }
+            elseif ($msg.Contains('debugging')) {
+                $subtype = 'Debugging call'
+            }
+            elseif ($res.type.Contains('Deprecated')) {
+                $subtype = 'Deprecated'
+            }
+            elseif ($res.type.Contains('Notice')) {
+                $subtype = 'Notice'
+            }
+            elseif ($res.type.Contains('Warning')) {
+                $subtype = 'Warning'
+            }
+            else {
+                $subtype = $res.type
+            }
         }
 
         return @($result, $subtype, ($msglines -join '#####'))
+    }
+
+    function GetComponent() {
+
     }
 
     $results = [System.Collections.ArrayList]::new()
@@ -354,20 +393,50 @@ function Build-PhpunitTestReport {
 
                 $result, $subtype, $msg = GetResult($_)
 
-                $results.Add([PSCustomObject]@{
-                        ConfigFile    = $file
-                        Suite         = $suite
-                        Testfile      = $testfile
-                        Class         = $class
-                        Method        = $method
-                        DataSet       = $dataSet
-                        Result        = $result
-                        ResultSubtype = $subtype
-                        Message       = $msg
+                $null = $results.Add([PSCustomObject]@{
+                        ConfigFile     = $file
+                        ComponentGroup = ''
+                        Component      = ''
+                        Suite          = $suite
+                        Testfile       = $testfile
+                        Class          = $class
+                        Method         = $method
+                        DataSet        = $dataSet
+                        Result         = $result
+                        ResultSubtype  = $subtype
+                        Message        = $msg
                     }
                 )
             }
         }
+    }
+
+    $comps = Import-Components
+    $moodleComp = $comps.moodle
+    $comps = $comps.Values | Sort-Object -Property Prefix -Descending
+    $moodledir = $Env:MoodleDir
+    $compnum = 0
+    $results = $results | Sort-Object -Property TestFile -Descending
+    foreach ($res in $results) {
+        $respath = [System.IO.Path]::GetRelativePath($moodledir, $res.Testfile)
+        $comp = $comps[$compnum]
+        $compname = $null
+        while (-Not $compname) {
+            if ($respath.StartsWith($comp.Prefix)) {
+                $compname = $comp.Name
+                $groupname = $comp.Group
+            }
+            elseif ($respath -gt $comp.Prefix) {
+                $compname = $moodleComp.Name
+                $groupname = $moodleComp.Group
+            }
+            else {
+                $comp = $comps[++$compnum]
+            }
+        }
+
+        $res.ComponentGroup = $groupname
+        $res.Component = $compname
     }
 
     $outfile = Join-Path $Dir results.csv

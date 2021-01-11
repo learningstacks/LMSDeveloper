@@ -19,6 +19,8 @@
         'Initialize-Behat'
         'Invoke-Behat'
         'Get-BehatSummary'
+        'Enable-Xdebug'
+        'Disable-Xdebug'
     )
     CmdletsToExport    = @()
     VariablesToExport  = '*'

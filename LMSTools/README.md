@@ -34,7 +34,17 @@ This module provides the following commands. For detailed help on any function t
 
 - `Invoke-PHPUnit` - Initializes PHPUnit if required, runs Moodle PHPUnit, generates a CSV file with test results for analysis. Allows selection of alternate configuration files.
 
+- `Publish-PHPUnitTestReport` - Parse the junit.xml files produced by the PHPUnit test run and generate a results.csv file usable in Excel to review test results.
+
 - `Initialize-Behat` - Convenience function to run the Moodle Behat init script.
 
 - `Invoke-Behat` - Initializes Behat if required, runs Behat tests, generates a test report summarizing results and listing failures. Allows selection of specific components and groups of components.
 
+- `Publish-BehatTestReport` - Parse the Behat test results and assemble a text file summarizing results and listing failures.
+
+
+### Other Functions
+
+- `Enable-XDebug` - Enables XDebug. Linux only.
+
+- `Disable-XDebug` - Disables XDebug. Improves test performance. Called by Invoke-PHPUnit and Invoke-Behat. Linux only.
