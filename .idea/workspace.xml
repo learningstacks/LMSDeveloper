@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:dev" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="39b369e5-1da4-48af-8036-3324e0eeab1b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" synchronizationState="DONT_SYNCHRONIZE">
+    <execution>
+      <interpreter composer="composer" />
+    </execution>
+  </component>
+  <component name="DockerExecCommand">
+    <ExecCommand>
+      <option name="command" value="bash" />
+      <option name="imageId" value="sha256:322cba9991d8791292b87a9a4a60085699cebd6aae7476054437d5d1133a5c34" />
+    </ExecCommand>
+  </component>
+  <component name="ExportTestResults" exportFormat="Xml" outputFolder="$PROJECT_DIR$/test_results/phpunit" userTempatePath="" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
+  <component name="PhpServers">
+    <servers>
+      <server id="7c465451-6f43-41b1-a919-85ebac5f279e" name="localhost" />
+    </servers>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="webserver" />
+  <component name="ProjectId" id="1idodMFEtU1FPPWBO8CmTKqB9TY" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ChangesTree.GroupingKeys" value="directory&#10;repository" />
+    <property name="Constants" value="false" />
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test_results/phpunit/elis_20210504-2.xml" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lms/moodle" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lms" />
+      <recent name="$PROJECT_DIR$/tools" />
+      <recent name="$PROJECT_DIR$/test_results" />
+      <recent name="$PROJECT_DIR$/tools/test" />
+      <recent name="$PROJECT_DIR$/tools/test/phpunit" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Behat.behat local_cliengage">
+    <configuration name="PHPUnit Custom Components" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner class="auth_cliauth\tests\auth_cliauth_testcase" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_custom.xml" file="$PROJECT_DIR$/lms/moodle/auth/cliauth/tests/auth_cliauth_test.php" method="test_new_user" scope="XML" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="databaselogging_testcase.test_dbloggingdoesnotproduceoutputformanualexport" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="databaselogging_testcase" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_elis.xml" file="$PROJECT_DIR$/lms/moodle/local/datahub/tests/database_logging_test.php" method="test_dbloggingdoesnotproduceoutputformanualexport" scope="Method" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="eliscore_etl_testcase.test_set_etl_task_blocked" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="eliscore_etl_testcase" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_elis.xml" file="$PROJECT_DIR$/lms/moodle/local/eliscore/plugins/etl/tests/eliscore_etl_test.php" method="test_set_etl_task_blocked" scope="Method" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="phpunit_block_elisadmin" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner class="version1elismanualincrementalexport_testcase" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_block_elisadmin.xml" file="$PROJECT_DIR$/lms/moodle/local/datahub/exportplugins/version1elis/tests/version1elis_manual_incremental_export_test.php" scope="XML" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="phpunit_elis" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner class="version1elismanualincrementalexport_testcase" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_elis.xml" file="$PROJECT_DIR$/lms/moodle/local/datahub/exportplugins/version1elis/tests/version1elis_manual_incremental_export_test.php" scope="XML" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="roles_testcase.test_clusterrolepageavailablerecordsrespectusersetpermissions" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="roles_testcase" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_elis.xml" file="$PROJECT_DIR$/lms/moodle/local/elisprogram/tests/roles_test.php" method="test_clusterrolepageavailablerecordsrespectusersetpermissions" scope="Method" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="student_save_nouserobject_test.test_student_save_nouserobject" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="student_save_nouserobject_test" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_elis.xml" file="$PROJECT_DIR$/lms/moodle/local/elisprogram/tests/student_save_nouserobject_test.php" method="test_student_save_nouserobject" scope="Method" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="behat local_cliengage" type="PhpBehatConfigurationType">
+      <BehatRunner directory="$PROJECT_DIR$/lms/moodle/local/cliengage/tests/behat" scenario="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="PHPUnit Init" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="/app/lms/moodle/admin/tool/phpunit/cli/init.php">
+      <CommandLine>
+        <PhpTestInterpreterSettings>
+          <option name="interpreterName" value="webserver" />
+        </PhpTestInterpreterSettings>
+      </CommandLine>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="PHP Script.PHPUnit Init" />
+      <item itemvalue="PHPUnit.PHPUnit Custom Components" />
+      <item itemvalue="PHPUnit.phpunit_elis" />
+      <item itemvalue="PHPUnit.phpunit_block_elisadmin" />
+      <item itemvalue="PHPUnit.roles_testcase.test_clusterrolepageavailablerecordsrespectusersetpermissions" />
+      <item itemvalue="PHPUnit.student_save_nouserobject_test.test_student_save_nouserobject" />
+      <item itemvalue="PHPUnit.eliscore_etl_testcase.test_set_etl_task_blocked" />
+      <item itemvalue="PHPUnit.databaselogging_testcase.test_dbloggingdoesnotproduceoutputformanualexport" />
+      <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+      <item itemvalue="Behat.behat local_cliengage" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+        <item itemvalue="PHPUnit.databaselogging_testcase.test_dbloggingdoesnotproduceoutputformanualexport" />
+        <item itemvalue="PHPUnit.eliscore_etl_testcase.test_set_etl_task_blocked" />
+        <item itemvalue="PHPUnit.student_save_nouserobject_test.test_student_save_nouserobject" />
+        <item itemvalue="PHPUnit.roles_testcase.test_clusterrolepageavailablerecordsrespectusersetpermissions" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="39b369e5-1da4-48af-8036-3324e0eeab1b" name="Default Changelist" comment="" />
+      <created>1602246915132</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1602246915132</updated>
+      <workItem from="1602246916179" duration="10013000" />
+      <workItem from="1602331774299" duration="16000" />
+      <workItem from="1608158943021" duration="3118000" />
+      <workItem from="1608207687742" duration="3920000" />
+      <workItem from="1608300182296" duration="2730000" />
+      <workItem from="1608381576904" duration="4187000" />
+      <workItem from="1608473785313" duration="5932000" />
+      <workItem from="1608559496608" duration="8202000" />
+      <workItem from="1608600134190" duration="3270000" />
+      <workItem from="1608641889161" duration="216000" />
+      <workItem from="1608642120364" duration="6373000" />
+      <workItem from="1608651539583" duration="1027000" />
+      <workItem from="1608758505216" duration="112000" />
+      <workItem from="1609688841285" duration="6000" />
+      <workItem from="1609770411231" duration="191000" />
+      <workItem from="1610158822500" duration="1916000" />
+      <workItem from="1610193986006" duration="6410000" />
+      <workItem from="1611590758509" duration="15000" />
+      <workItem from="1619698332215" duration="9137000" />
+      <workItem from="1619723978152" duration="4684000" />
+      <workItem from="1619786780290" duration="400000" />
+      <workItem from="1619787314359" duration="1285000" />
+      <workItem from="1619788616232" duration="5670000" />
+      <workItem from="1619994281832" duration="5740000" />
+      <workItem from="1620043304623" duration="4222000" />
+      <workItem from="1620070118421" duration="43184000" />
+      <workItem from="1620175682569" duration="559000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="BEK_SORT_TYPE" value="1" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="dev" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$/lms" />
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2475" y="204" key="#Test_Frameworks" timestamp="1620176186851">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2475" y="204" key="#Test_Frameworks/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620176186851" />
+    <state x="2454" y="211" width="1071" height="696" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1620176188685">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2454" y="211" width="1071" height="696" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620176188685" />
+    <state x="2020" y="123" width="1720" height="817" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1620153981430">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2020" y="123" width="1720" height="817" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620153981430" />
+    <state x="2512" y="500" width="474" height="477" key="#xdebugger.evaluate" timestamp="1620153131753">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2512" y="500" width="474" height="477" key="#xdebugger.evaluate/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620153131753" />
+    <state width="645" height="485" key="DebuggerActiveHint" timestamp="1620153624008">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="645" height="485" key="DebuggerActiveHint/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620153624008" />
+    <state x="2668" y="304" width="424" height="454" key="FileChooserDialogImpl" timestamp="1620154320815">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2668" y="304" width="424" height="454" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620154320815" />
+    <state width="1878" height="288" key="GridCell.Tab.0.bottom" timestamp="1620155329024">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1294" height="276" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1620072182586" />
+    <state width="1878" height="288" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620155329024" />
+    <state width="1878" height="288" key="GridCell.Tab.0.center" timestamp="1620155329024">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1294" height="276" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1620072182586" />
+    <state width="1878" height="288" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620155329024" />
+    <state width="1878" height="288" key="GridCell.Tab.0.left" timestamp="1620155329024">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1294" height="276" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1620072182586" />
+    <state width="1878" height="288" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620155329024" />
+    <state width="1878" height="288" key="GridCell.Tab.0.right" timestamp="1620155329024">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1294" height="276" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1620072182586" />
+    <state width="1878" height="288" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620155329024" />
+    <state x="2374" y="181" key="SettingsEditor" timestamp="1619728141173">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2374" y="181" key="SettingsEditor/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1619728141173" />
+    <state width="960" height="508" key="XDebugger.FullValuePopup" timestamp="1620148898814">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="960" height="508" key="XDebugger.FullValuePopup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620148898814" />
+    <state x="2360" y="269" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1620148359638">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2360" y="269" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620148359638" />
+    <state x="525" y="147" width="1139" height="654" key="editAsTableFormatDialogDimension" timestamp="1619699951148">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="525" y="147" width="1139" height="654" key="editAsTableFormatDialogDimension/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1619699951148" />
+    <state x="2679" y="372" key="export.test.results" timestamp="1620155425648">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2679" y="372" key="export.test.results/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620155425648" />
+    <state x="2456" y="289" width="777" height="512" key="find.popup" timestamp="1620159048360">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2456" y="289" width="777" height="512" key="find.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620159048360" />
+    <state x="2869" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1620043635573">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2869" y="257" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620043635573" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/auth/cliauth/tests/auth_cliauth_test.php</url>
+          <line>313</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/tools/test/phpunit/test_report.php</url>
+          <line>31</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/index.php</url>
+          <line>24</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/exportplugins/version1/tests/version1_export_database_logging_test.php</url>
+          <line>340</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/elisprogram/tests/new_synch_test.php</url>
+          <line>136</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/elisprogram/tests/new_synch_test.php</url>
+          <line>163</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/certdelivery/tests/invalidate_certs_test.php</url>
+          <line>321</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/cliengage/tests/output/output_program_page_test.php</url>
+          <line>227</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/cliengage/tests/output/output_program_page_test.php</url>
+          <line>221</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/mod/payment/tests/setting_test.php</url>
+          <line>7</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/elisreports/instances/user_class_completion_details/user_class_completion_details_report.class.php</url>
+          <line>781</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/exportplugins/version1elis/lib.php</url>
+          <line>780</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/exportplugins/version1elis/tests/version1elis_extrafields_test.php</url>
+          <line>1013</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/exportplugins/version1elis/tests/version1elis_extrafields_test.php</url>
+          <line>192</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/exportplugins/version1/tests/version1_export_filesystem_logging_test.php</url>
+          <line>188</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/vendor/bin/phpunit</url>
+          <line>11</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/importplugins/version1elis/tests/elis_class_fs_log_test.php</url>
+          <line>105</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/importplugins/version1/tests/version1_filesystem_logging_test.php</url>
+          <line>753</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/importplugins/version1/tests/version1_filesystem_logging_test.php</url>
+          <line>183</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/importplugins/version1/tests/version1_filesystem_logging_test.php</url>
+          <line>156</line>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/lib/rlip_importplugin.class.php</url>
+          <line>472</line>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/importplugins/version1/tests/version1_user_import_test.php</url>
+          <line>1374</line>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/importplugins/version1/tests/version1_user_import_test.php</url>
+          <line>3221</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/importplugins/version1/tests/version1_user_import_test.php</url>
+          <line>3240</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/importplugins/version1/tests/version1_course_import_test.php</url>
+          <line>2372</line>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/importplugins/version1/tests/version1_course_import_test.php</url>
+          <line>2389</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/lib/rlip_importplugin.class.php</url>
+          <line>854</line>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/lib/rlip_importplugin.class.php</url>
+          <line>610</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/importplugins/version1/version1.class.php</url>
+          <line>1313</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/importplugins/version1/version1.class.php</url>
+          <line>1762</line>
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/importplugins/version1/version1.class.php</url>
+          <line>1827</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/course/format/lib.php</url>
+          <line>280</line>
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/exportplugins/version1/version1.class.php</url>
+          <line>173</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/datahub/exportplugins/version1/version1.class.php</url>
+          <line>52</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/lib/grade/grade_item.php</url>
+          <line>2507</line>
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/lib/grade/grade_grade.php</url>
+          <line>1240</line>
+          <option name="timeStamp" value="95" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/lib/grade/grade_item.php</url>
+          <line>2496</line>
+          <option name="timeStamp" value="96" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/elisprogram/tests/synchronize_test.php</url>
+          <line>2056</line>
+          <option name="timeStamp" value="97" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/elisprogram/tests/synchronize_test.php</url>
+          <line>352</line>
+          <option name="timeStamp" value="98" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/elisprogram/tests/synchronize_test.php</url>
+          <line>457</line>
+          <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/elisprogram/tests/userset_test.php</url>
+          <line>192</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/lms/moodle/local/eliscore/plugins/etl/etl.php</url>
+          <line>71</line>
+          <option name="timeStamp" value="101" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="xslt">
+          <url>file://$PROJECT_DIR$/test_results/phpunit/2020-12-16_2219/junit.xslt</url>
+          <line>2</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <breakpoint type="php-exception">
+          <properties name="Exception" />
+          <option name="timeStamp" value="28" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="LMS_Developer_Terry" type="b2602c69:ProjectViewProjectNode" />
+        <item name="LMS_Developer_Terry" type="462c0819:PsiDirectoryNode" />
+      </path>
+      <path>
+        <item name="LMS_Developer_Terry" type="b2602c69:ProjectViewProjectNode" />
+        <item name="LMS_Developer_Terry" type="462c0819:PsiDirectoryNode" />
+        <item name="test_results" type="462c0819:PsiDirectoryNode" />
+      </path>
+      <path>
+        <item name="LMS_Developer_Terry" type="b2602c69:ProjectViewProjectNode" />
+        <item name="LMS_Developer_Terry" type="462c0819:PsiDirectoryNode" />
+        <item name="test_results" type="462c0819:PsiDirectoryNode" />
+        <item name="phpunit" type="462c0819:PsiDirectoryNode" />
+      </path>
+      <path>
+        <item name="LMS_Developer_Terry" type="b2602c69:ProjectViewProjectNode" />
+        <item name="LMS_Developer_Terry" type="462c0819:PsiDirectoryNode" />
+        <item name="tools" type="462c0819:PsiDirectoryNode" />
+      </path>
+      <path>
+        <item name="LMS_Developer_Terry" type="b2602c69:ProjectViewProjectNode" />
+        <item name="LMS_Developer_Terry" type="462c0819:PsiDirectoryNode" />
+        <item name="tools" type="462c0819:PsiDirectoryNode" />
+        <item name="test" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
+  </component>
+</project>

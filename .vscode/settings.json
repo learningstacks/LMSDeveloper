@@ -1,0 +1,19 @@
+{
+    "powershell.codeFormatting.addWhitespaceAroundPipe": true,
+    "cSpell.words": [
+        "Behat",
+        "Moodle",
+        "Submodule",
+        "adminer",
+        "cliengage",
+        "cmdlet",
+        "devcontainer",
+        "httpdocs",
+        "wwwroot"
+    ],
+    "phpunit.files": "lms/moodle/local/certdelivery/tests/*_test.php",
+    "phpunit.logpanel": true,
+    "phpunit.maxNumberOfProblems": 500,
+    "phpunit.phpunit": "/app/lms/moodle/vendor/bin/phpunit",
+    "phpunit.clearOutputOnRun": false
+}
