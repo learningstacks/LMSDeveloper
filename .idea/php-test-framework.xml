@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="PhpTestFrameworkSettings">
+    <test_tools>
+      <tool tool_name="Behat">
+        <settings>
+          <configurations>
+            <configuration_by_sdk interpreter_id="3bfa603f-bdb7-4d98-bf79-600b068e86f7" configuration_file_path="/appdata/behatdata/behatrun/behat/behat.yml" executable_path="/app/lms/moodle/vendor/bin/behat" use_configuration_file="true" />
+          </configurations>
+        </settings>
+      </tool>
+    </test_tools>
+  </component>
   <component name="PhpTestFrameworkVersionCache">
     <tools_cache>
+      <tool tool_name="Behat">
+        <cache>
+          <versions>
+            <info id="interpreter-3bfa603f-bdb7-4d98-bf79-600b068e86f7" version="3.5.0" />
+          </versions>
+        </cache>
+      </tool>
       <tool tool_name="PHPUnit">
         <cache>
           <versions>

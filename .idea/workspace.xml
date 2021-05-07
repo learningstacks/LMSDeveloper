@@ -29,7 +29,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39b369e5-1da4-48af-8036-3324e0eeab1b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php-test-framework.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php-test-framework.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lms/moodle/course/format/fntabs/tests/behat/edit_delete_sections.feature" beforeDir="false" afterPath="$PROJECT_DIR$/lms/moodle/course/format/fntabs/tests/behat/edit_delete_sections.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lms/moodle/local/cliengage/tests/behat/self_enrol_program_page.feature" beforeDir="false" afterPath="$PROJECT_DIR$/lms/moodle/local/cliengage/tests/behat/self_enrol_program_page.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lms/moodle/theme/cliengage3/tests/behat/courseadministrationmenu.feature" beforeDir="false" afterPath="$PROJECT_DIR$/lms/moodle/theme/cliengage3/tests/behat/courseadministrationmenu.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lms/moodle/theme/cliengage3/tests/behat/pageadministrationmenu.feature" beforeDir="false" afterPath="$PROJECT_DIR$/lms/moodle/theme/cliengage3/tests/behat/pageadministrationmenu.feature" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +52,7 @@
       <option name="imageId" value="sha256:322cba9991d8791292b87a9a4a60085699cebd6aae7476054437d5d1133a5c34" />
     </ExecCommand>
   </component>
-  <component name="ExportTestResults" exportFormat="Xml" outputFolder="$PROJECT_DIR$/test_results/phpunit" userTempatePath="" />
+  <component name="ExportTestResults" exportFormat="Xml" outputFolder="$PROJECT_DIR$/tmp" userTempatePath="" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -72,12 +77,12 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test_results/phpunit/elis_20210504-2.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lms/moodle/local" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
+    <property name="settings.editor.selected.configurable" value="php.test.frameworks.configurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -97,12 +102,8 @@
       <TestRunner class="auth_cliauth\tests\auth_cliauth_testcase" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_custom.xml" file="$PROJECT_DIR$/lms/moodle/auth/cliauth/tests/auth_cliauth_test.php" method="test_new_user" scope="XML" use_alternative_configuration_file="true" />
       <method v="2" />
     </configuration>
-    <configuration name="databaselogging_testcase.test_dbloggingdoesnotproduceoutputformanualexport" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="databaselogging_testcase" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_elis.xml" file="$PROJECT_DIR$/lms/moodle/local/datahub/tests/database_logging_test.php" method="test_dbloggingdoesnotproduceoutputformanualexport" scope="Method" use_alternative_configuration_file="true" />
-      <method v="2" />
-    </configuration>
-    <configuration name="eliscore_etl_testcase.test_set_etl_task_blocked" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="eliscore_etl_testcase" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_elis.xml" file="$PROJECT_DIR$/lms/moodle/local/eliscore/plugins/etl/tests/eliscore_etl_test.php" method="test_set_etl_task_blocked" scope="Method" use_alternative_configuration_file="true" />
+    <configuration name="behat" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner configuration_file="/app/lms/moodle/phpunit.xml" directory="$PROJECT_DIR$/lms/moodle/theme/cliengage3/tests/behat" />
       <method v="2" />
     </configuration>
     <configuration name="phpunit_block_elisadmin" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -113,16 +114,24 @@
       <TestRunner class="version1elismanualincrementalexport_testcase" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_elis.xml" file="$PROJECT_DIR$/lms/moodle/local/datahub/exportplugins/version1elis/tests/version1elis_manual_incremental_export_test.php" scope="XML" use_alternative_configuration_file="true" />
       <method v="2" />
     </configuration>
-    <configuration name="roles_testcase.test_clusterrolepageavailablerecordsrespectusersetpermissions" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="roles_testcase" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_elis.xml" file="$PROJECT_DIR$/lms/moodle/local/elisprogram/tests/roles_test.php" method="test_clusterrolepageavailablerecordsrespectusersetpermissions" scope="Method" use_alternative_configuration_file="true" />
-      <method v="2" />
-    </configuration>
-    <configuration name="student_save_nouserobject_test.test_student_save_nouserobject" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="student_save_nouserobject_test" configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_elis.xml" file="$PROJECT_DIR$/lms/moodle/local/elisprogram/tests/student_save_nouserobject_test.php" method="test_student_save_nouserobject" scope="Method" use_alternative_configuration_file="true" />
+    <configuration name="phpunit_moodle.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner configuration_file="$PROJECT_DIR$/lms/moodle/phpunit_moodle.xml" scope="XML" use_alternative_configuration_file="true" />
       <method v="2" />
     </configuration>
     <configuration name="behat local_cliengage" type="PhpBehatConfigurationType">
       <BehatRunner directory="$PROJECT_DIR$/lms/moodle/local/cliengage/tests/behat" scenario="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="behat theme_cliengage3" type="PhpBehatConfigurationType">
+      <BehatRunner directory="$PROJECT_DIR$/lms/moodle/theme/cliengage3/tests/behat" scenario="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="behat" type="PhpBehatConfigurationType" temporary="true">
+      <BehatRunner directory="$PROJECT_DIR$/lms/moodle/course/format/fntabs/tests/behat" />
+      <method v="2" />
+    </configuration>
+    <configuration name="self_enrol_program_page.feature" type="PhpBehatConfigurationType" temporary="true">
+      <BehatRunner file="$PROJECT_DIR$/lms/moodle/local/cliengage/tests/behat/self_enrol_program_page.feature" scope="File" />
       <method v="2" />
     </configuration>
     <configuration name="PHPUnit Init" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="/app/lms/moodle/admin/tool/phpunit/cli/init.php">
@@ -142,24 +151,25 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Behat.behat local_cliengage" />
+      <item itemvalue="Behat.behat theme_cliengage3" />
+      <item itemvalue="Behat.self_enrol_program_page.feature" />
+      <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
       <item itemvalue="PHP Script.PHPUnit Init" />
       <item itemvalue="PHPUnit.PHPUnit Custom Components" />
       <item itemvalue="PHPUnit.phpunit_elis" />
       <item itemvalue="PHPUnit.phpunit_block_elisadmin" />
-      <item itemvalue="PHPUnit.roles_testcase.test_clusterrolepageavailablerecordsrespectusersetpermissions" />
-      <item itemvalue="PHPUnit.student_save_nouserobject_test.test_student_save_nouserobject" />
-      <item itemvalue="PHPUnit.eliscore_etl_testcase.test_set_etl_task_blocked" />
-      <item itemvalue="PHPUnit.databaselogging_testcase.test_dbloggingdoesnotproduceoutputformanualexport" />
-      <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
-      <item itemvalue="Behat.behat local_cliengage" />
+      <item itemvalue="PHPUnit.phpunit_moodle.xml" />
+      <item itemvalue="PHPUnit.behat" />
+      <item itemvalue="Behat.behat" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Behat.behat" />
+        <item itemvalue="PHPUnit.behat" />
+        <item itemvalue="PHPUnit.phpunit_moodle.xml" />
         <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
-        <item itemvalue="PHPUnit.databaselogging_testcase.test_dbloggingdoesnotproduceoutputformanualexport" />
-        <item itemvalue="PHPUnit.eliscore_etl_testcase.test_set_etl_task_blocked" />
-        <item itemvalue="PHPUnit.student_save_nouserobject_test.test_student_save_nouserobject" />
-        <item itemvalue="PHPUnit.roles_testcase.test_clusterrolepageavailablerecordsrespectusersetpermissions" />
+        <item itemvalue="Behat.self_enrol_program_page.feature" />
       </list>
     </recent_temporary>
   </component>
@@ -197,7 +207,9 @@
       <workItem from="1619994281832" duration="5740000" />
       <workItem from="1620043304623" duration="4222000" />
       <workItem from="1620070118421" duration="43184000" />
-      <workItem from="1620175682569" duration="559000" />
+      <workItem from="1620175682569" duration="2375000" />
+      <workItem from="1620306539686" duration="6116000" />
+      <workItem from="1620393903246" duration="3387000" />
     </task>
     <servers />
   </component>
@@ -286,13 +298,15 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2475" y="204" key="#Test_Frameworks/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620176186851" />
-    <state x="2454" y="211" width="1071" height="696" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1620176188685">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="534" y="219" width="1071" height="678" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1620394087428">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="2454" y="211" width="1071" height="696" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620176188685" />
-    <state x="2020" y="123" width="1720" height="817" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1620153981430">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="534" y="219" width="1071" height="678" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1620394087428" />
+    <state x="2454" y="211" width="1071" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620176541007" />
+    <state x="100" y="128" width="1720" height="849" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1620310278229">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state x="100" y="128" width="1720" height="849" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1620310278229" />
     <state x="2020" y="123" width="1720" height="817" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620153981430" />
     <state x="2512" y="500" width="474" height="477" key="#xdebugger.evaluate" timestamp="1620153131753">
       <screen x="1920" y="0" width="1920" height="1040" />
@@ -302,34 +316,40 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="645" height="485" key="DebuggerActiveHint/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620153624008" />
-    <state x="2668" y="304" width="424" height="454" key="FileChooserDialogImpl" timestamp="1620154320815">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="748" y="316" width="424" height="454" key="FileChooserDialogImpl" timestamp="1620396762000">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state x="748" y="316" width="424" height="454" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1620396762000" />
     <state x="2668" y="304" width="424" height="454" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620154320815" />
-    <state width="1878" height="288" key="GridCell.Tab.0.bottom" timestamp="1620155329024">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="288" key="GridCell.Tab.0.bottom" timestamp="1620395390078">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state width="1878" height="288" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1620395390078" />
     <state width="1294" height="276" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1620072182586" />
-    <state width="1878" height="288" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620155329024" />
-    <state width="1878" height="288" key="GridCell.Tab.0.center" timestamp="1620155329024">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="288" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620178287167" />
+    <state width="1878" height="288" key="GridCell.Tab.0.center" timestamp="1620395390077">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state width="1878" height="288" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1620395390077" />
     <state width="1294" height="276" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1620072182586" />
-    <state width="1878" height="288" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620155329024" />
-    <state width="1878" height="288" key="GridCell.Tab.0.left" timestamp="1620155329024">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="288" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620178287167" />
+    <state width="1878" height="288" key="GridCell.Tab.0.left" timestamp="1620395390076">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state width="1878" height="288" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1620395390076" />
     <state width="1294" height="276" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1620072182586" />
-    <state width="1878" height="288" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620155329024" />
-    <state width="1878" height="288" key="GridCell.Tab.0.right" timestamp="1620155329024">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="288" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620178287167" />
+    <state width="1878" height="288" key="GridCell.Tab.0.right" timestamp="1620395390077">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state width="1878" height="288" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1620395390077" />
     <state width="1294" height="276" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1620072182586" />
-    <state width="1878" height="288" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620155329024" />
-    <state x="2374" y="181" key="SettingsEditor" timestamp="1619728141173">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="288" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620178287167" />
+    <state x="454" y="188" width="1012" height="700" key="SettingsEditor" timestamp="1620394428856">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="2374" y="181" key="SettingsEditor/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1619728141173" />
+    <state x="454" y="188" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1620394428856" />
+    <state x="2374" y="181" width="1012" height="700" key="SettingsEditor/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620176793652" />
     <state width="960" height="508" key="XDebugger.FullValuePopup" timestamp="1620148898814">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -342,13 +362,15 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="525" y="147" width="1139" height="654" key="editAsTableFormatDialogDimension/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1619699951148" />
-    <state x="2679" y="372" key="export.test.results" timestamp="1620155425648">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="759" y="386" key="export.test.results" timestamp="1620396764108">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="2679" y="372" key="export.test.results/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620155425648" />
-    <state x="2456" y="289" width="777" height="512" key="find.popup" timestamp="1620159048360">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="759" y="386" key="export.test.results/0.0.1920.1080@0.0.1920.1080" timestamp="1620396764108" />
+    <state x="2679" y="372" key="export.test.results/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620176967638" />
+    <state x="536" y="300" width="906" height="633" key="find.popup" timestamp="1620309510844">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state x="536" y="300" width="906" height="633" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1620309510844" />
     <state x="2456" y="289" width="777" height="512" key="find.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1620159048360" />
     <state x="2869" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1620043635573">
       <screen x="1920" y="0" width="1920" height="1040" />
@@ -610,5 +632,8 @@
       </path>
     </expand>
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/LMS_Developer_Terry@behat.xml" NAME="behat Coverage Results" MODIFIED="1620393949130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
