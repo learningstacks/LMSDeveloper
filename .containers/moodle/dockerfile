@@ -1,0 +1,36 @@
+ARG PHP_VERSION=7.2
+
+FROM php:7.2-apache-buster
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
+    install-php-extensions gd xmlrpc mysqli intl zip && \
+    apt-get update && apt-get install -y wget locales locales-all && \
+    update-locale en_AU.UTF8
+
+    # Install Powershell
+RUN wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb && \
+    dpkg -i packages-microsoft-prod.deb && \
+    apt-get update && \
+    apt-get install -y powershell
+
+
+RUN apt install sudo
+RUN useradd -ms /bin/bash docker && adduser docker sudo
+# Users in the sudoers group can sudo as root without password.
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+ADD ./PwshProfile.ps1 /home/docker/.config/powershell/profile.ps1
+
+ADD phpunit.sh /usr/local/bin/phpunit.sh
+RUN chmod +x /usr/local/bin/phpunit.sh
+# ENTRYPOINT /usr/local/bin/phpunit.sh
+
+ADD 000-default.conf /etc/apache2/conf-enabled/000-default.conf
+ADD wait-for-it.sh /usr/local/bin/wait-for-it.sh
+RUN chmod +x /usr/local/bin/wait-for-it.sh
+
+USER docker
+
+RUN pwsh -command "install-module powershell-yaml -Scope CurrentUser -force"
