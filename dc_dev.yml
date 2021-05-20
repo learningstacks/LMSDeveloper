@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+
+  moodle:
+    build:
+      dockerfile: .containers/moodle/dockerfile
+      context: .
+      target: "dev"
+    volumes:
+      - .:/app:rw
+      - ./.containers/moodle/config.php:/app/lms/moodle/config.php:rw
+      - ./.containers/moodle/mailhog.conf:/etc/apache2/conf-enabled/mailhog.conf:rw
+      # - ./.containers/webserver/PwshProfile.ps1:/home/docker/.config/powershell/profile.ps1
+    user: docker
+    ports:
+      - 8002:80
+
+  db:
+    ports:
+      - 3308:3306
+
+  selenium:
+    ports:
+      - 7901:7900
+

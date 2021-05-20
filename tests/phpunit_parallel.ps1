@@ -1,80 +1,172 @@
-function RunDCPhpunitJob($job) {
-    # Define the docker-compose command with project name and compose files
-    $dc = "docker-compose -p $($job.config) $($job.composefiles)"
-
-    # Stop and delete any running containers
-    Invoke-Expression "$dc down --rmi local"
+function Start-Containers {
+    [CmdletBinding()]
+    param (
+        [Parameter(
+            ValueFromPipelineByPropertName = $true
+        )][string[]]$ComposeFiles,
+        [Parameter(
+            ValueFromPipelineByPropertName = $true
+        )][string]$Service,
+        [Parameter(
+            ValueFromPipelineByPropertName = $true
+        )][string]$ProjectName
+    )
+    $f = $ComposeFiles | ForEach-Object { "-f $_" }
+    $dc = "docker-compose -p $Project $f)"
 
     # Launch stack
     Invoke-Expression "$dc up --build --detach"
 
     # Get the moodle container id
-    $moodleid = Invoke-Expression "docker inspect --format=`"{{.Id}}`" $($job.config)_moodle_1"
+    $moodleContainerid = Invoke-Expression "docker inspect --format=`"{{.Id}}`" $($job.config)_moodle_1"
+    $result = $job.Clone()
+    $result.moodleContainerid = $moodleContainerid
+    $result
+}
 
-    # Wait for the DB to be ready
-    Invoke-Expression "docker exec $moodleid /usr/local/bin/wait-for-it.sh db:3306"
+function Stop-Containers {
+    [CmdletBinding()]
+    param (
+        [Parameter(ValueFromPipeline = $true)][hashtable]$Job,
+        [Parameter(
+            ValueFromPipelineByPropertName = $true
+        )][string[]]$ComposeFiles
 
-    $cmd =  "docker exec $moodleid pwsh -Command Initialize-PhpUnit -Config {1}.xml -AddComponentGroups" -f $job.config, $job.dir
-    # Invoke-PhpUnit, skip report generation
-    $cmd = "docker exec $moodleid pwsh -Command Invoke-PhpUnit -Config {1}.xml -LogDir {2} -NoReport" -f  $job.config, $job.dir
-    Invoke-Expression $cmd
+    )
+    $f = $ComposeFiles | ForEach-Object { "-f $_" }
+
+    $dc = "docker-compose -p $($job.config) $f)"
 
     # Stop and destroy containers
     Invoke-Expression "$dc down --rmi local"
+    $job
+
 }
 
-function Invoke-PhpunitTests {
-    $root = Resolve-Path (Join-Path $PSScriptRoot "..")
+Invoke-ContainerCommand ($containerid, $cmd) {
+    Invoke-Expression "docker exec $containerid $cmd"
+}
+
+
+function Invoke-PhpunitJob {
+    [CmdletBinding()]
+    param (
+        # [Parameter(ValueFromPipeline = $true)][hashtable]$Job
+        # [Parameter(
+        #     ParameterSetName = "docker",
+        #     Mandatory = $true,
+        #     ValueFromPipelineByPropertyName = $true
+        # )][string]$HostType,
+        [Parameter(
+            ParameterSetName = "docker",
+            Mandatory = $true,
+            ValueFromPipelineByPropertyName = $true
+        )][string[]]$ComposeFiles,
+        [Parameter(
+            ParameterSetName = "docker",
+            Mandatory = $true,
+            ValueFromPipelineByPropertyName = $true
+        )][string]$Service,
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = $true
+        )][string]$RunName,
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = $true
+        )][string[]]$Components,
+
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipelineByPropertyName = $true
+        )][string]$ResultsDir
+    )
+
+    begin {
+        # Validate $Job
+    }
+
+    process {
+        Stop-Containers -ProjectName $RunName -ComposeFiles $ComposeFiles
+        $moodleContainerId = Start-Containers -ComposeFiles $ComposeFiles -Service $Service
+        # $results = Invoke-ContainerCommand $moodleContainerId "pwsh -Command Invoke-PhpUnit -Components  -LogDir $RemoteResultsDir -NoReport"
+        Stop-Containers -ComposeFiles
+        $results
+    }
+
+    end {
+    }
+}
+
+}function Invoke-Tests {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)][hashtable]$Spec
+    )
+
     $logdirname = Get-Date -Format 'yyyy-MM-dd_HHmm'
-    $containerlogdir = "/app/test_results/phpunit/$logdirname"
-    $locallogdir = Join-Path $PSScriptRoot ".." "test_results" "phpunit" $logdirname
+    $containerlogdir = $Spec.RemoteResultsDir + "/$logdirname"
+    $locallogdir = $Spec.LocalResultsDir + "/$logdirname"
     New-Item -ItemType Directory $locallogdir -Force
 
-    $tests = $("moodle", "elis", "custom", "community") | forEach-Object {
-        @{
-            Config       = "phpunit_$_.xml"
-            Dir          = $containerlogdir
-            ComposeFiles = "-f $(Join-Path $PSScriptRoot '..' 'dc_phpunit.yml')"
-            RunName = $_
+    $Spec.TestJobs | ForEach-Object {
+        if ($_.Type = "Phpunit") {
+            $jobs = $_.TestJobs | forEach-Object -Parallel {
+                @{
+                    Invoke-PhpunitJob
+                    Dir = $containerlogdir
+                    ComposeFiles = "-f $(Join-Path $PSScriptRoot '..' 'dc_phpunit.yml')"
+                    RunName = $_
+                    CpmponentGroups
+                }
+            }
+
+            $jobs | Wait-Job | Receive-Job
+
         }
+
+        Publish-PhpUnitTestReport $locallogdir
     }
-    $jobs = $tests | forEach-Object -Parallel { RunDCPhpunitJob $_ } -AsJob
-    $jobs | Wait-Job | Receive-Job
 
-    # Generate reports
-    Publish-PhpUnitTestReport $locallogdir
+}
 
-    # $("custom", "elis", "community", "moodle") | forEach-Object -Parallel {
-    #     $jobs | forEach-Object -Parallel {
-    #         $job = $_
+$tests = @{
 
-    #         # Define the docker-compose command with project name and compose files
-    #         $dc = "docker-compose -p $($job.config) $($job.composefiles)"
+    Host             = "Docker"
+    ComposeFiles     = @(
+        (Join-Path $PSScriptRoot "../dc_phpunit.yml")
+    )
+    Service          = "moodle"
 
-    #         # Stop and delete any running containers
-    #         Invoke-Expression "$dc down --rmi local"
+    LocalResultsDir  = (Join-Path $PSScriptRoot "../test_results")
+    RemoteResultsDir = "/app/test_results"
 
-    #         # Launch stack
-    #         Invoke-Expression "$dc up --build --detach"
+    $TestJobs        = @(
+        @{
+            Type    = "Phpunit"
+            JobSets = @(
+                @(
+                    @{ Components = "moodle" }
+                    @{ Components = "custom" }
+                    @{ Components = "community" }
+                    @{ Components = "elis" }
+                )
+            )
+        }
+        @{
+            Type    = "Behat"
+            JobSets = @(
+                @(
+                    @{ Components = "moodle"; Features = @{ From = 1; To = 1000 } }
+                    @{ Components = "moodle"; Features = @{ From = 1001 } }
+                    @{ Components = "custom" }
+                    @{ Components = "community" }
+                    @{ Components = "elis" }
+                )
+            )
+        }
 
-    #         # Get the moodle container id
-    #         $moodleid = Invoke-Expression "docker inspect --format=`"{{.Id}}`" $($job.config)_moodle_1"
+    )
+}
 
-    #         # Wait for the DB to be ready
-    #         $cmd = "docker exec $moodleid /usr/local/bin/wait-for-it.sh db:3306"
-    #         Invoke-Expression $cmd
-
-    #         # Invoke-PhpUnit, skip report generation
-    #         $cmd = "docker exec {0} pwsh -Command Invoke-PhpUnit -Config {1}.xml -LogDir {2} -NoReport" -f $moodleid, $job.config, $job.dir
-    #         Invoke-Expression $cmd
-
-    #         # Stop and destroy containers
-    #         Invoke-Expression "$dc down --rmi local"
-
-    #     } -AsJob | Wait-Job | Receive-Job
-
-    #     # Generate reports
-    #     Publish-PhpUnitTestReport $locallogdir
-    # }
-
-    Invoke-PhpunitTests
+Invoke-Tests $tests

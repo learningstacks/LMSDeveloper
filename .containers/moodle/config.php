@@ -47,7 +47,7 @@ $CFG->phpunit_dataroot = '/appdata/phpunitdata';
 $CFG->phpunit_prefix = 'phpu_';
 define('TEST_EXTERNAL_FILES_HTTP_URL', 'http://exttests');
 
-$CFG->behat_wwwroot = "http://moodle/behat";
+$CFG->behat_wwwroot = "http://behat";
 $CFG->behat_dataroot = '/appdata/behatdata';
 $CFG->behat_dataroot_parent = $CFG->behat_dataroot;
 $CFG->behat_prefix = 'b_';
@@ -64,7 +64,7 @@ $CFG->behat_profiles = array(
         ]
     ),
 );
-$CFG->behat_faildump_path = '/app/test_results/behat/faildumps';
+$CFG->behat_faildump_path = getenv('BEHAT_FAILDUMP_DIR');
 
 if (getenv('MOODLE_DOCKER_APP')) {
     $CFG->behat_ionic_wwwroot = 'http://moodleapp:8100';

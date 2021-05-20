@@ -43,6 +43,8 @@ $CFG->passwordpolicy = 0;
 $CFG->cronclionly = 0;
 $CFG->pathtophp = '/usr/local/bin/php';
 
+$CFG->theme = "cliengage3";
+
 $CFG->phpunit_dataroot = '/appdata/phpunitdata';
 $CFG->phpunit_prefix = 'phpu_';
 define('TEST_EXTERNAL_FILES_HTTP_URL', 'http://exttests');
@@ -51,20 +53,49 @@ $CFG->behat_wwwroot = 'http://webserver/behat';
 $CFG->behat_dataroot = '/appdata/behatdata';
 $CFG->behat_dataroot_parent = $CFG->behat_dataroot;
 $CFG->behat_prefix = 'b_';
-$CFG->behat_profiles = array(
+// $CFG->behat_profiles = array(
+//     'default' => array(
+//         'browser' => getenv('MOODLE_DOCKER_BROWSER'),
+//         'wd_host' => 'http://selenium:4444/wd/hub',
+//         // 'suites' => [
+//         //     'default' => [
+//         //         'contexts' => [
+//         //             'MinkContext'
+//         //         ]
+//         //     ]
+//         // ]
+//     ),
+// );
+
+$CFG->behat_config = array(
+
+    // with Chrome browser (js) and Goutte headless browser (nonjs).
+    // Behat 3.x version.
     'default' => array(
-        'browser' => getenv('MOODLE_DOCKER_BROWSER'),
-        'wd_host' => 'http://selenium:4444/wd/hub',
-        'suites' => [
-            'default' => [
-                'contexts' => [
-                    'MinkContext'
-                ]
-            ]
-        ]
+         'extensions' => array(
+            'Behat\MinkExtension' => array(
+                // 'default_session' => 'goutte',
+                // 'goutte' => null,
+                // 'javascript_session' => 'selenium2',
+                'selenium2' => array(
+                    'browser' => getenv('MOODLE_DOCKER_BROWSER'),
+                    'wd_host' => 'http://selenium:4444/wd/hub',
+                    // 'capabilities' => array(
+                    //     'extra_capabilities' => array(
+                    //         'chromeOptions' => array(
+                    //             'args' => array(
+                    //                 '--disable-infobars',
+                    //             )
+                    //         )
+                    //     )
+                    // )
+                )
+            )
+        )
     ),
 );
-$CFG->behat_faildump_path = '/app/test_results/behat/faildumps';
+
+$CFG->behat_faildump_path = getenv('BEHAT_FAILDUMP_DIR');
 
 define('PHPUNIT_LONGTEST', true);
 

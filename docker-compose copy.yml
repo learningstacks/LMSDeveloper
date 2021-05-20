@@ -1,13 +1,11 @@
 version: '3.8'
 services:
-  moodle:
+  webserver:
     depends_on:
       - db
       # - mailhog
     build:
-      dockerfile: .containers/moodle/dockerfile
-      context: .
-      target: "test"
+      context: .containers/webserver
       args:
         PHP_VERSION: 7.2
     environment:
@@ -26,62 +24,48 @@ services:
 #      PHP_INI_XDEBUG__REMOTE_HOST: localhost
 #      XDEBUG_CONFIG: "remote_host=${XDEBUG_REMOTE_HOST} remote_autostart=On"
       XDEBUG_CONFIG: remote_host=localhost
-    # ports:
-    #   - 8001:80/tcp
-    networks:
-      moodle:
-        aliases:
-          - behat
+    ports:
+      - 8001:80/tcp
     volumes:
-      # - .:/app:rw
-      - ./LMSTools:/app/LMSTools
-      - ./.containers/moodle/000-default.conf:/etc/apache2/sites-enabled/000-default.conf:rw
-      # - ./.containers/webserver/apache/mailhog.conf:/etc/apache2/conf-enabled/mailhog.conf:rw
-      # - ./.containers/webserver/moodle/config.php:/app/lms/moodle/config.php:rw
-      # - ./.containers/webserver/PwshProfile.ps1:/home/docker/.config/powershell/profile.ps1
-      # - moodledata:/appdata/moodledata
+      - .:/app:rw
+      - /home/terry/.local/share/powershell/Modules/LMSTools:/app/LMSTools
+      - ./.containers/webserver/apache/000-default.conf:/etc/apache2/conf-enabled/000-default.conf:rw
+      - ./.containers/webserver/apache/mailhog.conf:/etc/apache2/conf-enabled/mailhog.conf:rw
+      - ./.containers/webserver/moodle/config.php:/app/lms/moodle/config.php:rw
+      - ./.containers/webserver/PwshProfile.ps1:/home/docker/.config/powershell/profile.ps1
+      - moodledata:/appdata/moodledata
     working_dir: /app
 
   db:
-    networks:
-      moodle:
     image: mysql:5
     command: '--character-set-server=utf8mb4 --collation-server=utf8mb4_bin
       --innodb_file_per_table=On --innodb_large_prefix=On'
-    # ports:
-    #   - 3307:3306/tcp
+    ports:
+      - 3307:3306/tcp
     environment:
       MYSQL_DATABASE: moodle
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: moodle
       MYSQL_PASSWORD: moodle
-    # volumes:
-    #   - mysqldata:/var/lib/mysql
+    volumes:
+      - mysqldata:/var/lib/mysql
 
   exttests:
     image: moodlehq/moodle-exttests
-    networks:
-      moodle:
 
   mailhog:
     image: mailhog/mailhog
-    networks:
-      moodle:
-   # ports:
-    #   - 8025:8025
+    ports:
+      - 8025:8025
 
   selenium:
     image: selenium/standalone-firefox:2.53.1
     volumes:
       - .:/app:ro
     shm_size: '2gb'
-    networks:
-      moodle:
-    # ports:
-    #   - 7900:7900
+    ports:
+      - 7900:7900
 
-networks:
-  moodle:
-# volumes:
-#   moodledata:
-#   mysqldata:
+volumes:
+  moodledata:
+  mysqldata:

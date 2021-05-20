@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  moodle:
+    build:
+      dockerfile: .containers/moodle/dockerfile
+      context: .
+      target: "test"
+    volumes:
+      - ./test_runs:/app/test_runs
+      - ./tests:/app/tests
+    user: docker
+
+

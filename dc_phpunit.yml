@@ -1,0 +1,50 @@
+version: '3.8'
+services:
+  moodle:
+    depends_on:
+      - db
+    build:
+      context: .containers/moodle
+      dockerfile: dockerfile
+      args:
+        PHP_VERSION: 7.2
+    environment:
+      MOODLE_DOCKER_BROWSER: firefox
+      MOODLE_DOCKER_DBCOLLATION: utf8mb4_bin
+      MOODLE_DOCKER_DBNAME: moodle
+      MOODLE_DOCKER_DBPASS: moodle
+      MOODLE_DOCKER_DBTYPE: mysqli
+      MOODLE_DOCKER_DBUSER: moodle
+      MOODLE_DOCKER_WEB_HOST: localhost
+      PHPUNIT_CONFIG:
+      # PHP_IDE_CONFIG: serverName=localhost
+      # PHP_INI_UPLOAD_MAX_FILESIZE: 1G
+      # PHP_INI_POST_MAX_SIZE: 1G
+    volumes:
+      - .:/app:rw
+      - ./.containers/moodle/config.php:/app/lms/moodle/config.php:ro
+      - /home/terry/.local/share/powershell/Modules/LMSTools:/app/LMSTools
+    tmpfs:
+      - /appdata/phpunitdata
+      - /appdata/behatdata
+      - /appdata/moodledata
+    working_dir: /app
+    user: docker
+    sysctls:
+      net.ipv4.ip_unprivileged_port_start: 0
+
+  db:
+    image: mysql:5
+    command: '--character-set-server=utf8mb4 --collation-server=utf8mb4_bin --innodb_file_format=barracuda
+      --innodb_file_per_table=On --innodb_large_prefix=On'
+    environment:
+      MYSQL_DATABASE: moodle
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: moodle
+      MYSQL_PASSWORD: moodle
+    tmpfs:
+      - /var/lib/mysql
+
+  exttests:
+    image: moodlehq/moodle-exttests
+

@@ -1,3 +1,9 @@
 /lms/
 /test_results
+/test_runs
+/tests/test_results
 /tmp
+/LMSTools
+/.idea
+/.vscode
+/tests/configs

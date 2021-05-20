@@ -29,6 +29,8 @@ RUN sudo mkdir -p /appdata/moodledata && \
     # sudo mkdir -p /appdata/behat_logs && \
     sudo chown -R docker:docker /appdata
 
+COPY apache/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+
 ENV APACHE_DOCUMENT_ROOT "/app/lms/moodle"
 ENV PHP_EXTENSION_GD 1
 ENV PHP_EXTENSION_INTL 1
