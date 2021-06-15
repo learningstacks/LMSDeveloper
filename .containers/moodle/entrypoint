@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -e
+
+sudo chown -R docker /appdata
+
+if [[ -d "/appdata/moodledata"]]; then
+    mkdir "/appdata/moodledata"
+fi
+
+if [[ -d "/appdata/phpunitdata"]]; then
+    mkdir "/appdata/phpunitdata"
+fi
+
+if [[ -d "/appdata/behatdata"]]; then
+    mkdir "/appdata/behatdata"
+fi
+
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+	set -- apache2-foreground "$@"
+fi
+
+exec "$@"

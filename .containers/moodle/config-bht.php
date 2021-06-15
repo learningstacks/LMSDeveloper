@@ -49,8 +49,37 @@ define('TEST_EXTERNAL_FILES_HTTP_URL', "http://moodle/exttests");
 
 $CFG->behat_wwwroot = "http://behat";
 $CFG->behat_dataroot = '/appdata/behatdata';
-$CFG->behat_dataroot_parent = $CFG->behat_dataroot;
-$CFG->behat_prefix = 'b_';
+// $CFG->behat_dataroot_parent = '/appdata';
+$CFG->behat_prefix = 'bht_';
+
+$CFG->behat_parallel_run = [
+    [
+        'behat_prefix' => 'bht1_',
+        'wd_host' => 'http://se1:4444/wd/hub',
+        'behat_wwwroot' => 'http://behat1',
+    ],
+    [
+        'behat_prefix' => 'bht2_',
+        'wd_host' => 'http://se2:4444/wd/hub',
+        'behat_wwwroot' => 'http://behat2',
+    ],
+    [
+        'behat_prefix' => 'bht3_',
+        'wd_host' => 'http://se4:4444/wd/hub',
+        'behat_wwwroot' => 'http://behat3',
+    ],
+    [
+        'behat_prefix' => 'bht4_',
+        'wd_host' => 'http://se4:4444/wd/hub',
+        'behat_wwwroot' => 'http://behat4',
+    ],
+    [
+        'behat_prefix' => 'bht5_',
+        'wd_host' => 'http://se5:4444/wd/hub',
+        'behat_wwwroot' => 'http://behat5',
+    ]
+];
+
 $CFG->behat_profiles = array(
     'default' => array(
         'browser' => getenv('MOODLE_DOCKER_BROWSER'),

@@ -11,6 +11,7 @@ services:
       args:
         PHP_VERSION: 7.2
     environment:
+      TZ: America/Chicago
       MOODLE_DOCKER_BROWSER: firefox
       MOODLE_DOCKER_DBCOLLATION: utf8mb4_bin
       MOODLE_DOCKER_DBNAME: moodle
@@ -23,11 +24,7 @@ services:
       PHP_INI_UPLOAD_MAX_FILESIZE: 1G
       PHP_INI_POST_MAX_SIZE: 1G
       PHP_INI_XDEBUG__REMOTE_AUTOSTART: 1
-#      PHP_INI_XDEBUG__REMOTE_HOST: localhost
-#      XDEBUG_CONFIG: "remote_host=${XDEBUG_REMOTE_HOST} remote_autostart=On"
       XDEBUG_CONFIG: remote_host=localhost
-    # ports:
-    #   - 8001:80/tcp
     networks:
       moodle:
         aliases:
@@ -48,8 +45,6 @@ services:
     image: mysql:5
     command: '--character-set-server=utf8mb4 --collation-server=utf8mb4_bin
       --innodb_file_per_table=On --innodb_large_prefix=On'
-    # ports:
-    #   - 3307:3306/tcp
     environment:
       MYSQL_DATABASE: moodle
       MYSQL_ROOT_PASSWORD: root
@@ -67,18 +62,15 @@ services:
     image: mailhog/mailhog
     networks:
       moodle:
-   # ports:
-    #   - 8025:8025
 
   selenium:
-    image: selenium/standalone-firefox:2.53.1
+    image: selenium/standalone-firefox-debug:2.53.1
     volumes:
       - .:/app:ro
     shm_size: '2gb'
     networks:
       moodle:
-    # ports:
-    #   - 7900:7900
+
 
 networks:
   moodle:

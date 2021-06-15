@@ -5,9 +5,16 @@ services:
       dockerfile: .containers/moodle/dockerfile
       context: .
       target: "test"
+    tmpfs:
+      - /appdata/behatdata
+      - /appdata/phpunitdata
+      - /appdata/moodledata
     volumes:
       - ./test_runs:/app/test_runs
       - ./tests:/app/tests
     user: docker
+  db:
+    tmpfs:
+      - /var/lib/mysql
 
 

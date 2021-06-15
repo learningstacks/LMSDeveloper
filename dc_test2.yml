@@ -1,0 +1,78 @@
+version: '3.8'
+networks:
+  moodle: {}
+
+services:
+  
+  # exttests:
+  #   image: moodlehq/moodle-exttests
+  #   networks:
+  #     moodle: {}
+  
+  moodle:
+    build:
+      args:
+        PHP_VERSION: '7.2'
+      context: .
+      dockerfile: .containers/moodle/dockerfile
+      target: test
+    depends_on:
+      db:
+        condition: service_started
+    environment:
+      MOODLE_DOCKER_BROWSER: firefox
+      MOODLE_DOCKER_DBCOLLATION: utf8mb4_bin
+      MOODLE_DOCKER_DBNAME: moodle
+      MOODLE_DOCKER_DBPASS: moodle
+      MOODLE_DOCKER_DBTYPE: mysqli
+      MOODLE_DOCKER_DBUSER: moodle
+      MOODLE_DOCKER_WEB_HOST: localhost
+      MOODLE_DOCKER_WEB_PORT: 127.0.0.1:80
+      PHP_IDE_CONFIG: serverName=localhost
+      PHP_INI_POST_MAX_SIZE: 1G
+      PHP_INI_UPLOAD_MAX_FILESIZE: 1G
+      # PHP_INI_XDEBUG__REMOTE_AUTOSTART: 1
+      TZ: America/Chicago
+      # XDEBUG_CONFIG: remote_host=localhost
+    networks:
+      moodle:
+        aliases:
+          - behat
+    tmpfs:
+      - /appdata/behatdata
+      - /appdata/phpunitdata
+      - /appdata/moodledata
+    user: docker
+    volumes:
+      - .:/app:rw
+      - ./.containers/moodle/config.php:/app/lms/moodle/config.php:rw
+      # - /home/terry/workspace/uth/restructure/LMS_Developer_Terry/LMSTools:/app/LMSTools:rw
+      # - /home/terry/workspace/uth/restructure/LMS_Developer_Terry/test_runs:/app/test_runs:rw
+      - /home/terry/workspace/uth/restructure/LMS_Developer_Terry/.containers/moodle/000-default.conf:/etc/apache2/sites-enabled/000-default.conf:rw
+    working_dir: /app
+  
+  selenium:
+    build:
+      dockerfile: .containers/selenium/dockerfile
+      context: .
+    networks:
+      moodle: {}
+    shm_size: 2gb
+    volumes:
+      - .:/app:ro
+  
+  db:
+    image: mysql:5
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --innodb_file_per_table=On
+      --innodb_large_prefix=On
+    environment:
+      MYSQL_DATABASE: moodle
+      MYSQL_PASSWORD: moodle
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: moodle
+    networks:
+      moodle: {}
+    tmpfs:
+      - /var/lib/mysql
+
+

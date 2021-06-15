@@ -1,9 +1,9 @@
 /lms/
 /test_results
 /test_runs
-/tests/test_results
+/tests
 /tmp
 /LMSTools
 /.idea
 /.vscode
-/tests/configs
+/_archive

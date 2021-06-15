@@ -10,16 +10,27 @@ services:
       - .:/app:rw
       - ./.containers/moodle/config.php:/app/lms/moodle/config.php:rw
       - ./.containers/moodle/mailhog.conf:/etc/apache2/conf-enabled/mailhog.conf:rw
+      - moodledata:/appdata/moodledata
       # - ./.containers/webserver/PwshProfile.ps1:/home/docker/.config/powershell/profile.ps1
     user: docker
     ports:
-      - 8002:80
+      - 8080:80
 
   db:
+    volumes:
+      - mysqldata:/var/lib/mysql
     ports:
-      - 3308:3306
+      - 3380:3306
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
 
   selenium:
-    ports:
-      - 7901:7900
+    # ports:
+    #   - 7900:7900
 
+volumes:
+  moodledata:
+  mysqldata:

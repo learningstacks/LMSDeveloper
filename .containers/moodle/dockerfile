@@ -5,7 +5,7 @@ FROM php:7.2-apache-buster AS base
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/install-php-extensions && sync \
-    && install-php-extensions gd xmlrpc mysqli intl zip \
+    && install-php-extensions gd xmlrpc mysqli intl zip soap \
     && apt-get update && apt-get install -y sudo git wget locales locales-all \
     && update-locale en_AU.UTF8
 
@@ -27,31 +27,33 @@ COPY ./.containers/moodle/PwshProfile.ps1 /home/docker/.config/powershell/profil
 # ENTRYPOINT /usr/local/bin/phpunit.sh
 
 # COPY ./.containers/moodle/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY ./.containers/moodle/wait-for-it.sh /usr/local/bin/wait-for-it.sh
-RUN chmod +x /usr/local/bin/wait-for-it.sh
+COPY ./.containers/moodle/wait-for-it /usr/local/bin/wait-for-it
+RUN chmod +x /usr/local/bin/wait-for-it
+
+COPY ./.containers/moodle/entrypoint /usr/local/bin/entrypoint
+RUN chmod +x /usr/local/bin/entrypoint
 
 RUN sudo mkdir -p /appdata/behatdata
 RUN sudo mkdir /appdata/moodledata
 RUN sudo mkdir /appdata/phpunitdata
 RUN sudo chown -R docker:docker /appdata
 
-USER docker
-
-RUN pwsh -command "install-module powershell-yaml -Scope CurrentUser -force"
+RUN pwsh -command "install-module powershell-yaml -force"
 
 # ---TEST ---
 FROM base AS Test
+COPY ./.containers/moodle/php.ini-test /usr/local/etc/php/php.ini
 COPY --chown=docker:docker ./lms /app/lms
 COPY --chown=docker:docker  ./.containers/moodle/config.php /app/lms/moodle/config.php
 COPY --chown=docker:docker  ./tests /app/tests
-# COPY ./LMSTools_New /app/LMSTools
+COPY ./LMSTools /app/LMSTools
 COPY --chown=docker:docker  ./.lmsproject.json /app/
 COPY --chown=docker:docker  ./components.csv /app/
-
 
 # --- DEV ---
 FROM base AS Dev
 USER root
+COPY ./.containers/moodle/php.ini-dev /usr/local/etc/php/php.ini
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \

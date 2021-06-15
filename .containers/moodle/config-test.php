@@ -64,7 +64,7 @@ $CFG->behat_profiles = array(
         ]
     ),
 );
-$CFG->behat_faildump_path = empty(getenv('BEHAT_FAILDUMP_DIR')) ? "/app/tmp/faildump" : getenv('BEHAT_FAILDUMP_DIR');
+$CFG->behat_faildump_path = getenv('BEHAT_FAILDUMP_DIR');
 
 if (getenv('MOODLE_DOCKER_APP')) {
     $CFG->behat_ionic_wwwroot = 'http://moodleapp:8100';

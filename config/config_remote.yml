@@ -1,0 +1,7 @@
+Paths:
+    Root: "/app"
+
+Docker:
+    ComposeFiles:
+        - dctest2.yml
+    MoodleService: moodle
