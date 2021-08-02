@@ -6,7 +6,7 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 
 RUN chmod +x /usr/local/bin/install-php-extensions && sync \
     && install-php-extensions gd xmlrpc mysqli intl zip soap \
-    && apt-get update && apt-get install -y sudo git wget locales locales-all \
+    && apt-get update && apt-get install -y sudo git wget locales locales-all openssh-server supervisor \
     && update-locale en_AU.UTF8
 
     # Install Powershell
@@ -19,8 +19,9 @@ RUN wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsof
 RUN useradd -ms /bin/bash docker && adduser docker sudo
 # Users in the sudoers group can sudo as root without password.
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo 'docker:docker' | chpasswd
 
-COPY ./.containers/moodle/PwshProfile.ps1 /home/docker/.config/powershell/profile.ps1
+COPY --chown=docker:docker ./.containers/moodle/PwshProfile.ps1 /home/docker/.config/powershell/profile.ps1
 
 # COPY phpunit.sh /usr/local/bin/phpunit.sh
 # RUN chmod +x /usr/local/bin/phpunit.sh
@@ -30,24 +31,38 @@ COPY ./.containers/moodle/PwshProfile.ps1 /home/docker/.config/powershell/profil
 COPY ./.containers/moodle/wait-for-it /usr/local/bin/wait-for-it
 RUN chmod +x /usr/local/bin/wait-for-it
 
-COPY ./.containers/moodle/entrypoint /usr/local/bin/entrypoint
-RUN chmod +x /usr/local/bin/entrypoint
+RUN mkdir -p /var/lock/apache2 /var/run/apache2 /var/run/sshd /var/log/supervisor /var/log/apache2
+RUN chown -R docker:docker /var/log/apache2 /var/lock/apache2 /var/run/apache2
+COPY ./.containers/moodle/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./.containers/moodle/sshd_config /etc/ssh/sshd_config
 
-RUN sudo mkdir -p /appdata/behatdata
-RUN sudo mkdir /appdata/moodledata
-RUN sudo mkdir /appdata/phpunitdata
-RUN sudo chown -R docker:docker /appdata
+COPY ./.containers/moodle/entrypoint2 /usr/local/bin/entrypoint
+RUN chmod +x /usr/local/bin/entrypoint
+ENTRYPOINT [ "/usr/local/bin/entrypoint" ]
+
+# RUN sudo mkdir -p /appdata/behatdata
+# RUN sudo mkdir /appdata/moodledata
+# RUN sudo mkdir /appdata/phpunitdata
+# RUN sudo chown -R docker:docker /appdata
 
 RUN pwsh -command "install-module powershell-yaml -force"
+
+COPY .containers/moodle/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+EXPOSE 22 80
+
+COPY --chown=docker:docker ./.containers/moodle/id_rsa.pub /home/docker/.ssh/authorized_keys
+RUN chmod 600  /home/docker/.ssh/authorized_keys
+COPY --chown=docker:docker  ./.lmsproject.container.json /app/.lmsproject.json
+COPY --chown=docker:docker  ./.containers/moodle/config.php /app/lms/moodle/config.php
+
+USER docker
 
 # ---TEST ---
 FROM base AS Test
 COPY ./.containers/moodle/php.ini-test /usr/local/etc/php/php.ini
 COPY --chown=docker:docker ./lms /app/lms
-COPY --chown=docker:docker  ./.containers/moodle/config.php /app/lms/moodle/config.php
-COPY --chown=docker:docker  ./tests /app/tests
+COPY --chown=docker:docker  ./moodle-exttests /app/moodle-exttests
 COPY ./LMSTools /app/LMSTools
-COPY --chown=docker:docker  ./.lmsproject.json /app/
 COPY --chown=docker:docker  ./components.csv /app/
 
 # --- DEV ---

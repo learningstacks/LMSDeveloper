@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+if [[ ! -d "/appdata/moodledata" ]]
+then
+    sudo mkdir -p "/appdata/moodledata"
+fi
+
+if [[ ! -d "/appdata/phpunitdata" ]]
+then
+    sudo mkdir -p "/appdata/phpunitdata"
+fi
+
+if [[ ! -d "/appdata/behatdata" ]]
+then
+    sudo mkdir -p "/appdata/behatdata"
+fi
+
+sudo chown -R docker /appdata
+
+sudo /usr/bin/supervisord -n

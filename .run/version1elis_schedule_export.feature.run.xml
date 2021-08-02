@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="version1elis_schedule_export.feature" type="PhpBehatConfigurationType">
+    <BehatRunner file="$PROJECT_DIR$/lms/moodle/local/datahub/tests/behat/version1elis_schedule_export.feature" scenario="" scope="File" />
+    <method v="2" />
+  </configuration>
+</component>

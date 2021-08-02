@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="foo.feature" type="PhpBehatConfigurationType">
+    <BehatRunner file="$PROJECT_DIR$/lms/moodle/local/datahub/tests/behat/foo.feature" scenario="" scope="File" />
+    <CommandLine>
+      <PhpTestInterpreterSettings>
+        <option name="interpreterName" value="moodle" />
+      </PhpTestInterpreterSettings>
+    </CommandLine>
+    <method v="2" />
+  </configuration>
+</component>

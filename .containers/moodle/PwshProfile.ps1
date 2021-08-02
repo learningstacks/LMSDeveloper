@@ -42,5 +42,3 @@ function Test-Xdebug {
         Write-Host 'Xdebug disabled'
     }
 }
-
-Test-Xdebug

@@ -1,24 +1,28 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
 sudo chown -R docker /appdata
 
-if [[ -d "/appdata/moodledata"]]; then
-    mkdir "/appdata/moodledata"
+if [[ ! -d "/appdata/moodledata" ]]
+then
+    mkdir -p "/appdata/moodledata"
 fi
 
-if [[ -d "/appdata/phpunitdata"]]; then
-    mkdir "/appdata/phpunitdata"
+if [[ ! -d "/appdata/phpunitdata" ]]
+then
+    mkdir -p "/appdata/phpunitdata"
 fi
 
-if [[ -d "/appdata/behatdata"]]; then
-    mkdir "/appdata/behatdata"
+if [[ ! -d "/appdata/behatdata" ]]
+then
+    mkdir -p "/appdata/behatdata"
 fi
 
 # first arg is `-f` or `--some-option`
-if [ "${1#-}" != "$1" ]; then
-	set -- apache2-foreground "$@"
+if [ "${1#-}" != "$1" ] || [ ! "$1" ]
+then
+        set -- apache2-foreground "$@"
 fi
 
 exec "$@"

@@ -1,3 +1,19 @@
 {
-    
+  "Paths": {
+    "Local": {
+      "RelativeRunRoot": "test_runs",
+      "RelativeLmsGitDir": "lms",
+      "RelativeMoodleDir": "lms/moodle",
+      "DataRoot": null
+    },
+    "Remote": {
+      "Root": "/app"
+    }
+  },
+  "Docker": {
+    "ComposeFiles": [
+      "docker-compose.yml"
+    ],
+    "Service": "moodle"
+  }
 }

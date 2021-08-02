@@ -33,71 +33,38 @@ $CFG->directorypermissions = 0777;
 $CFG->smtphosts = 'mailhog:1025';
 
 // Debug options - possible to be controlled by flag in future..
-$CFG->debug = false; //(E_ALL | E_STRICT); // DEBUG_DEVELOPER
+$CFG->debug = 0;
 $CFG->debugdisplay = 0;
-$CFG->debugstringids = 1; // Add strings=1 to url to get string ids.
-$CFG->perfdebug = 15;
-$CFG->debugpageinfo = 1;
+$CFG->debugstringids = 0; // Add strings=1 to url to get string ids.
+$CFG->perfdebug = 0;
+$CFG->debugpageinfo = 0;
 $CFG->allowthemechangeonurl = 1;
 $CFG->passwordpolicy = 0;
 $CFG->cronclionly = 0;
 $CFG->pathtophp = '/usr/local/bin/php';
 
-$CFG->theme = "cliengage3";
-
 $CFG->phpunit_dataroot = '/appdata/phpunitdata';
 $CFG->phpunit_prefix = 'phpu_';
-define('TEST_EXTERNAL_FILES_HTTP_URL', 'http://exttests');
+define('TEST_EXTERNAL_FILES_HTTP_URL', "http://moodle/exttests");
 
-$CFG->behat_wwwroot = 'http://webserver/behat';
+$CFG->behat_wwwroot = "http://behat";
 $CFG->behat_dataroot = '/appdata/behatdata';
 $CFG->behat_dataroot_parent = $CFG->behat_dataroot;
 $CFG->behat_prefix = 'b_';
-// $CFG->behat_profiles = array(
-//     'default' => array(
-//         'browser' => getenv('MOODLE_DOCKER_BROWSER'),
-//         'wd_host' => 'http://selenium:4444/wd/hub',
-//         // 'suites' => [
-//         //     'default' => [
-//         //         'contexts' => [
-//         //             'MinkContext'
-//         //         ]
-//         //     ]
-//         // ]
-//     ),
-// );
-
-$CFG->behat_config = array(
-
-    // with Chrome browser (js) and Goutte headless browser (nonjs).
-    // Behat 3.x version.
+$CFG->behat_profiles = array(
     'default' => array(
-         'extensions' => array(
-            'Behat\MinkExtension' => array(
-                // 'default_session' => 'goutte',
-                // 'goutte' => null,
-                // 'javascript_session' => 'selenium2',
-                'selenium2' => array(
-                    'browser' => getenv('MOODLE_DOCKER_BROWSER'),
-                    'wd_host' => 'http://selenium:4444/wd/hub',
-                    // 'capabilities' => array(
-                    //     'extra_capabilities' => array(
-                    //         'chromeOptions' => array(
-                    //             'args' => array(
-                    //                 '--disable-infobars',
-                    //             )
-                    //         )
-                    //     )
-                    // )
-                )
-            )
-        )
+        'browser' => getenv('MOODLE_DOCKER_BROWSER'),
+        'wd_host' => 'http://selenium:4444/wd/hub',
+        'suites' => [
+            'default' => [
+                'contexts' => [
+                    'MinkContext'
+                ]
+            ]
+        ]
     ),
 );
-
-$CFG->behat_faildump_path = getenv('BEHAT_FAILDUMP_DIR');
-
-define('PHPUNIT_LONGTEST', true);
+$CFG->behat_faildump_path = empty(getenv('BEHAT_FAILDUMP_DIR')) ? "/app/tmp/faildump" : getenv('BEHAT_FAILDUMP_DIR');
 
 if (getenv('MOODLE_DOCKER_APP')) {
     $CFG->behat_ionic_wwwroot = 'http://moodleapp:8100';

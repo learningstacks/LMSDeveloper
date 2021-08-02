@@ -1,9 +1,10 @@
 version: '3.8'
+
 services:
+
   moodle:
     depends_on:
       - db
-      # - mailhog
     build:
       dockerfile: .containers/moodle/dockerfile
       context: .
@@ -19,20 +20,29 @@ services:
       MOODLE_DOCKER_DBTYPE: mysqli
       MOODLE_DOCKER_DBUSER: moodle
       MOODLE_DOCKER_WEB_HOST: localhost
-      MOODLE_DOCKER_WEB_PORT: 127.0.0.1:80
+      MOODLE_DOCKER_WEB_PORT: 8000
       PHP_IDE_CONFIG: serverName=localhost
       PHP_INI_UPLOAD_MAX_FILESIZE: 1G
       PHP_INI_POST_MAX_SIZE: 1G
-      PHP_INI_XDEBUG__REMOTE_AUTOSTART: 1
-      XDEBUG_CONFIG: remote_host=localhost
+      # PHP_INI_XDEBUG__REMOTE_AUTOSTART: 1
+#      PHP_INI_XDEBUG__REMOTE_HOST: localhost
+#      XDEBUG_CONFIG: "remote_host=${XDEBUG_REMOTE_HOST} remote_autostart=On"
+      # XDEBUG_CONFIG: remote_host=localhost
+    user: docker
+    ports:
+      - 80
+      - 22
     networks:
       moodle:
         aliases:
           - behat
+    tmpfs:
+      - /appdata
     volumes:
       # - .:/app:rw
-      - ./LMSTools:/app/LMSTools
-      - ./.containers/moodle/000-default.conf:/etc/apache2/sites-enabled/000-default.conf:rw
+      # - ./LMSTools:/app/LMSTools
+      - ./test_runs:/app/test_runs
+      # - ./.containers/moodle/000-default.conf:/etc/apache2/sites-enabled/000-default.conf:rw
       # - ./.containers/webserver/apache/mailhog.conf:/etc/apache2/conf-enabled/mailhog.conf:rw
       # - ./.containers/webserver/moodle/config.php:/app/lms/moodle/config.php:rw
       # - ./.containers/webserver/PwshProfile.ps1:/home/docker/.config/powershell/profile.ps1
@@ -42,6 +52,8 @@ services:
   db:
     networks:
       moodle:
+    ports:
+      - 3306
     image: mysql:5
     command: '--character-set-server=utf8mb4 --collation-server=utf8mb4_bin
       --innodb_file_per_table=On --innodb_large_prefix=On'
@@ -50,20 +62,11 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: moodle
       MYSQL_PASSWORD: moodle
-    # volumes:
-    #   - mysqldata:/var/lib/mysql
-
-  exttests:
-    image: moodlehq/moodle-exttests
-    networks:
-      moodle:
-
-  mailhog:
-    image: mailhog/mailhog
-    networks:
-      moodle:
+    tmpfs:
+      - /var/lib/mysql
 
   selenium:
+    # image: selenium/standalone-firefox-debug:2.53.1
     image: selenium/standalone-firefox-debug:2.53.1
     volumes:
       - .:/app:ro
@@ -71,9 +74,5 @@ services:
     networks:
       moodle:
 
-
 networks:
   moodle:
-# volumes:
-#   moodledata:
-#   mysqldata:

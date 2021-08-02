@@ -1,0 +1,11 @@
+{
+  "Paths": {
+    "Local": {
+      "Root": "/app",
+      "RelativeRunRoot": "test_runs",
+      "RelativeLmsGitDir": "lms",
+      "RelativeMoodleDir": "lms/moodle",
+      "DataRoot": "/appdata"
+    }
+  }
+}
